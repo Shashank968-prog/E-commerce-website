@@ -20,4 +20,8 @@ public class HomeController {
     public String register() {  // Changed method name
         return "register";
     }
+    @GetMapping("/products")
+    public String products() {  // Changed method name
+        return "products";
+    }
 }
