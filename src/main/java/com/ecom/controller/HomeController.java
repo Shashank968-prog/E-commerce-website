@@ -12,16 +12,22 @@ public class HomeController {
     }
     
     @GetMapping("/login")
-    public String login() {  // Changed method name
+    public String login() {
         return "login";
     }
     
     @GetMapping("/register")
-    public String register() {  // Changed method name
+    public String register() {
         return "register";
     }
+    
     @GetMapping("/products")
-    public String products() {  // Changed method name
+    public String products() {
         return "products";
+    }
+    
+    @GetMapping("/product")
+    public String viewProduct() {
+        return "veiw_product";  // Match your actual filename
     }
 }
