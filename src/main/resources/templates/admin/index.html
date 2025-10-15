@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="base::layout(~{::section})">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard</title>
+</head>
+<body>
+<section>
+    <div class="container py-5 px-4">
+        <h2 class="text-center fw-bold mb-5 text-dark">Admin Dashboard</h2>
+        <div class="row g-4 justify-content-center" style="max-width: 1200px; margin: 0 auto;">
+            <div class="col-lg-4 col-md-6">
+                <a href="#" class="text-decoration-none">
+                    <div class="card h-100 border-0" style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border-radius: 8px; transition: box-shadow 0.3s ease, transform 0.3s ease;">
+                        <div class="card-body text-center p-4" style="background: #fff;">
+                            <div style="width: 70px; height: 70px; background: #f0f4ff; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+                                <i class="fa-solid fa-plus fa-2x" style="color: #4361ee;"></i>
+                            </div>
+                            <h5 class="fw-bold mb-2" style="color: #1e293b;">Add Product</h5>
+                            <p class="mb-0" style="color: #64748b; font-size: 14px;">Create new products</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <a href="#" class="text-decoration-none">
+                    <div class="card h-100 border-0" style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border-radius: 8px; transition: box-shadow 0.3s ease, transform 0.3s ease;">
+                        <div class="card-body text-center p-4" style="background: #fff;">
+                            <div style="width: 70px; height: 70px; background: #fff0f6; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+                                <i class="fa-solid fa-tags fa-2x" style="color: #d946ef;"></i>
+                            </div>
+                            <h5 class="fw-bold mb-2" style="color: #1e293b;">Add Category</h5>
+                            <p class="mb-0" style="color: #64748b; font-size: 14px;">Manage categories</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <a href="#" class="text-decoration-none">
+                    <div class="card h-100 border-0" style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border-radius: 8px; transition: box-shadow 0.3s ease, transform 0.3s ease;">
+                        <div class="card-body text-center p-4" style="background: #fff;">
+                            <div style="width: 70px; height: 70px; background: #f0f9ff; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+                                <i class="fa-solid fa-box fa-2x" style="color: #0ea5e9;"></i>
+                            </div>
+                            <h5 class="fw-bold mb-2" style="color: #1e293b;">View Products</h5>
+                            <p class="mb-0" style="color: #64748b; font-size: 14px;">Browse all products</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <a href="#" class="text-decoration-none">
+                    <div class="card h-100 border-0" style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border-radius: 8px; transition: box-shadow 0.3s ease, transform 0.3s ease;">
+                        <div class="card-body text-center p-4" style="background: #fff;">
+                            <div style="width: 70px; height: 70px; background: #fef3c7; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+                                <i class="fa-solid fa-shopping-cart fa-2x" style="color: #f59e0b;"></i>
+                            </div>
+                            <h5 class="fw-bold mb-2" style="color: #1e293b;">Orders</h5>
+                            <p class="mb-0" style="color: #64748b; font-size: 14px;">Track all orders</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <a href="#" class="text-decoration-none">
+                    <div class="card h-100 border-0" style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border-radius: 8px; transition: box-shadow 0.3s ease, transform 0.3s ease;">
+                        <div class="card-body text-center p-4" style="background: #fff;">
+                            <div style="width: 70px; height: 70px; background: #f0fdf4; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+                                <i class="fa-solid fa-users fa-2x" style="color: #22c55e;"></i>
+                            </div>
+                            <h5 class="fw-bold mb-2" style="color: #1e293b;">Users</h5>
+                            <p class="mb-0" style="color: #64748b; font-size: 14px;">Manage all users</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <a href="#" class="text-decoration-none">
+                    <div class="card h-100 border-0" style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border-radius: 8px; transition: box-shadow 0.3s ease, transform 0.3s ease;">
+                        <div class="card-body text-center p-4" style="background: #fff;">
+                            <div style="width: 70px; height: 70px; background: #fef2f2; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+                                <i class="fa-solid fa-user-shield fa-2x" style="color: #ef4444;"></i>
+                            </div>
+                            <h5 class="fw-bold mb-2" style="color: #1e293b;">Add Admin</h5>
+                            <p class="mb-0" style="color: #64748b; font-size: 14px;">Create admin users</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>
