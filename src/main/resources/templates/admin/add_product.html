@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Product</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 100%;
+        }
+
+        .form-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .form-header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            padding: 48px 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .form-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 400px;
+            height: 400px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+
+        .form-header h1 {
+            font-size: 32px;
+            font-weight: 700;
+            color: white;
+            margin: 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .form-header p {
+            margin: 12px 0 0 0;
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .form-body {
+            padding: 48px 40px;
+            background: #f8f9fb;
+        }
+
+        .form-section {
+            background: white;
+            padding: 32px;
+            border-radius: 12px;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1e3c72;
+            margin-bottom: 24px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #e8eef5;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .required {
+            color: #ef4444;
+            margin-left: 4px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 15px;
+            font-family: inherit;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #2a5298;
+            box-shadow: 0 0 0 4px rgba(42, 82, 152, 0.1);
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        .file-upload {
+            border: 3px dashed #cbd5e0;
+            border-radius: 12px;
+            padding: 40px;
+            text-align: center;
+            background: linear-gradient(135deg, #f8f9fb 0%, #ffffff 100%);
+            transition: all 0.3s ease;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .file-upload:hover {
+            border-color: #2a5298;
+            background: linear-gradient(135deg, #e8eef5 0%, #ffffff 100%);
+        }
+
+        .file-upload input[type="file"] {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .file-upload-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            font-size: 36px;
+        }
+
+        .file-upload-text {
+            color: #4a5568;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .file-upload-hint {
+            color: #718096;
+            font-size: 13px;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 18px 32px;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 15px rgba(30, 60, 114, 0.3);
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(30, 60, 114, 0.4);
+        }
+
+        .btn-submit:active {
+            transform: translateY(0);
+        }
+
+        .helper-text {
+            font-size: 13px;
+            color: #718096;
+            margin-top: 6px;
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .form-body {
+                padding: 32px 24px;
+            }
+
+            .form-header {
+                padding: 36px 24px;
+            }
+
+            .form-section {
+                padding: 24px;
+            }
+
+            .form-header h1 {
+                font-size: 26px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-card">
+            <div class="form-header">
+                <h1>Add New Product</h1>
+                <p>Enter product details to add to your inventory</p>
+            </div>
+            
+            <div class="form-body">
+                <form action="/admin/saveProduct" method="post" enctype="multipart/form-data">
+                    
+                    <!-- Basic Information -->
+                    <div class="form-section">
+                        <div class="section-title">Basic Information</div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">
+                                Product Title
+                                <span class="required">*</span>
+                            </label>
+                            <input 
+                                type="text" 
+                                name="title" 
+                                class="form-control" 
+                                placeholder="Enter product name" 
+                                required>
+                            <div class="helper-text">Choose a clear and descriptive product name</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">
+                                Description
+                                <span class="required">*</span>
+                            </label>
+                            <textarea 
+                                name="description" 
+                                class="form-control" 
+                                placeholder="Describe the product features, specifications, and benefits" 
+                                required></textarea>
+                            <div class="helper-text">Provide detailed information about the product</div>
+                        </div>
+                    </div>
+
+                    <!-- Category & Pricing -->
+                    <div class="form-section">
+                        <div class="section-title">Category & Pricing</div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">
+                                Category
+                                <span class="required">*</span>
+                            </label>
+                            <select 
+                                name="category" 
+                                class="form-control" 
+                                required>
+                                <option value="">Select a category</option>
+                                <option value="electronics">Electronics</option>
+                                <option value="clothing">Clothing & Fashion</option>
+                                <option value="books">Books & Media</option>
+                                <option value="home">Home & Kitchen</option>
+                                <option value="sports">Sports & Outdoors</option>
+                                <option value="toys">Toys & Games</option>
+                                <option value="beauty">Beauty & Personal Care</option>
+                                <option value="automotive">Automotive</option>
+                            </select>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">
+                                    Price (₹)
+                                    <span class="required">*</span>
+                                </label>
+                                <input 
+                                    type="number" 
+                                    name="price" 
+                                    class="form-control" 
+                                    placeholder="0.00" 
+                                    step="0.01" 
+                                    min="0" 
+                                    required>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">
+                                    Stock Quantity
+                                    <span class="required">*</span>
+                                </label>
+                                <input 
+                                    type="number" 
+                                    name="stock" 
+                                    class="form-control" 
+                                    placeholder="0" 
+                                    min="0" 
+                                    required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product Image -->
+                    <div class="form-section">
+                        <div class="section-title">Product Image</div>
+                        
+                        <div class="form-group">
+                            <div class="file-upload">
+                                <input type="file" name="image" accept="image/*" required>
+                                <div class="file-upload-icon">📸</div>
+                                <div class="file-upload-text">Click to upload product image</div>
+                                <div class="file-upload-hint">Supported: JPG, PNG, JPEG (Max 5MB) • High resolution recommended</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-submit">
+                        Add Product to Inventory
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
