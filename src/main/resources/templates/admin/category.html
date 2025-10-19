@@ -3,7 +3,7 @@
       th:replace="base::layout(~{::section})">
 <head>
     <meta charset="UTF-8">
-    <title>Add Category</title>
+    <title>Manage Categories</title>
 </head>
 <body>
 <section>
@@ -43,11 +43,8 @@
                             <!-- Category Image -->
                             <div class="mb-3">
                                 <label class="form-label fw-semibold">Category Image</label>
-                                <input type="file" name="image" class="form-control" accept="image/*" onchange="previewImage(event)">
+                                <input type="file" name="image" class="form-control" accept="image/*">
                                 <small class="text-muted">Upload an image for the category (jpg, png, etc.)</small>
-                                <div class="mt-2">
-                                    <img id="imagePreview" src="#" alt="Image Preview" style="max-width: 100%; display: none; border-radius: 5px;">
-                                </div>
                             </div>
 
                             <!-- Status -->
@@ -115,20 +112,33 @@
                                             <strong th:text="${cat.name}"></strong>
                                         </td>
                                         <td>
-                                            <span th:if="${cat.isActive}" class="badge bg-success">
+                                            <!-- NULL SAFE: Check if isActive is true -->
+                                            <span th:if="${cat.isActive != null && cat.isActive}" class="badge bg-success">
                                                 <i class="bi bi-check-circle"></i> Active
                                             </span>
-                                            <span th:unless="${cat.isActive}" class="badge bg-danger">
+                                            <!-- Show inactive for false OR null -->
+                                            <span th:unless="${cat.isActive != null && cat.isActive}" class="badge bg-danger">
                                                 <i class="bi bi-x-circle"></i> Inactive
                                             </span>
                                         </td>
                                         <td>
-                                            <button class="btn btn-sm btn-warning me-1">
+                                            <!-- Edit Button - Opens Modal -->
+                                            <button class="btn btn-sm btn-warning me-1" 
+                                                    data-bs-toggle="modal" 
+                                                    th:data-bs-target="'#editModal' + ${cat.id}"
+                                                    title="Edit this category">
                                                 <i class="bi bi-pencil"></i> Edit
                                             </button>
-                                            <button class="btn btn-sm btn-danger">
-                                                <i class="bi bi-trash"></i> Delete
-                                            </button>
+                                            
+                                            <!-- Delete Button - Form based approach -->
+                                            <form th:action="@{'/admin/deleteCategory/' + ${cat.id}}" 
+                                                  method="get" 
+                                                  style="display: inline;"
+                                                  onsubmit="return confirm('Are you sure you want to delete this category?');">
+                                                <button type="submit" class="btn btn-sm btn-danger" title="Delete this category">
+                                                    <i class="bi bi-trash"></i> Delete
+                                                </button>
+                                            </form>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -147,9 +157,98 @@
 
         </div>
     </div>
+
+    <!-- Edit Category Modals (One for each category) -->
+    <div th:each="cat : ${categories}">
+        <div class="modal fade" th:id="'editModal' + ${cat.id}" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header" style="background-color: #4f46e5; color: white;">
+                        <h5 class="modal-title">
+                            <i class="bi bi-pencil-square me-2"></i>Edit Category
+                        </h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    
+                    <form th:action="@{/admin/updateCategory}" method="post" enctype="multipart/form-data">
+                        <div class="modal-body">
+                            
+                            <!-- Hidden ID field -->
+                            <input type="hidden" name="id" th:value="${cat.id}">
+                            
+                            <!-- Category Name -->
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">Category Name</label>
+                                <input type="text" name="name" th:value="${cat.name}" class="form-control" required>
+                            </div>
+                            
+                            <!-- Current Image Display -->
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">Current Image</label>
+                                <div class="text-center border rounded p-2 bg-light">
+                                    <img th:if="${cat.imageData != null}"
+                                         th:src="@{'/admin/category/image/' + ${cat.id}}" 
+                                         alt="Current Image" 
+                                         style="max-width: 150px; max-height: 150px; object-fit: cover;" 
+                                         class="rounded">
+                                    <p th:unless="${cat.imageData != null}" class="text-muted mb-0">
+                                        <i class="bi bi-image fs-1"></i><br>
+                                        No image uploaded
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <!-- Upload New Image -->
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">Upload New Image</label>
+                                <input type="file" name="image" class="form-control" accept="image/*">
+                                <small class="text-muted">Leave empty to keep current image</small>
+                            </div>
+                            
+                            <!-- Status (NULL SAFE) -->
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold d-block mb-2">Status</label>
+                                <div class="btn-group w-100" role="group">
+                                    <!-- Active: checked if isActive is explicitly true -->
+                                    <input type="radio" class="btn-check" name="isActive" 
+                                           th:id="'editStatusActive' + ${cat.id}" 
+                                           value="true" 
+                                           th:checked="${cat.isActive != null && cat.isActive}">
+                                    <label class="btn btn-outline-success w-50" 
+                                           th:for="'editStatusActive' + ${cat.id}">
+                                        <i class="bi bi-check-circle me-2"></i>Active
+                                    </label>
+
+                                    <!-- Inactive: checked if isActive is false OR null -->
+                                    <input type="radio" class="btn-check" name="isActive" 
+                                           th:id="'editStatusInactive' + ${cat.id}" 
+                                           value="false" 
+                                           th:checked="${cat.isActive == null || !cat.isActive}">
+                                    <label class="btn btn-outline-danger w-50" 
+                                           th:for="'editStatusInactive' + ${cat.id}">
+                                        <i class="bi bi-x-circle me-2"></i>Inactive
+                                    </label>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                <i class="bi bi-x-circle me-2"></i>Cancel
+                            </button>
+                            <button type="submit" class="btn btn-primary" style="background-color: #4f46e5; border: none;">
+                                <i class="bi bi-save me-2"></i>Update Category
+                            </button>
+                        </div>
+                    </form>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
 </section>
-
-
 
 </body>
 </html>

@@ -110,4 +110,73 @@ public class AdminController {
         
         return ResponseEntity.notFound().build();
     }
+    
+    // DELETE: Delete category by ID
+    @GetMapping("/deleteCategory/{id}")
+    public String deleteCategory(@PathVariable Integer id, HttpSession session) {
+        boolean isDeleted = categoryService.deleteCategory(id);
+        
+        if (isDeleted) {
+            session.setAttribute("successMsg", "Category deleted successfully");
+        } else {
+            session.setAttribute("errorMsg", "Category not deleted! Something went wrong");
+        }
+        
+        return "redirect:/admin/category";
+    }
+    
+    // ❌ REMOVED: loadEditCategory method - Not needed with modal approach
+    // We use JavaScript to open the modal instead
+    
+    // UPDATE: Update existing category (form submission from modal)
+    @PostMapping("/updateCategory")
+    public String updateCategory(@ModelAttribute Category category,
+                                 @RequestParam("image") MultipartFile file,
+                                 HttpSession session) throws IOException {
+        
+        // Get existing category to preserve old image if no new image is uploaded
+        Category existingCategory = categoryService.getCategoryById(category.getId());
+        
+        if (existingCategory == null) {
+            session.setAttribute("errorMsg", "Category not found");
+            return "redirect:/admin/category";
+        }
+        
+        // Handle image update
+        if (!file.isEmpty()) {
+            // New image uploaded
+            category.setImageName(file.getOriginalFilename());
+            category.setImageData(file.getBytes());
+        } else {
+            // No new image, keep the old one
+            category.setImageName(existingCategory.getImageName());
+            category.setImageData(existingCategory.getImageData());
+        }
+        
+        // Check if name already exists (excluding current category)
+        List<Category> allCategories = categoryService.getAllCategory();
+        boolean nameExists = false;
+        
+        for (Category c : allCategories) {
+            if (c.getName().equalsIgnoreCase(category.getName()) && !c.getId().equals(category.getId())) {
+                nameExists = true;
+                break;
+            }
+        }
+        
+        if (nameExists) {
+            session.setAttribute("errorMsg", "Category name already exists");
+            return "redirect:/admin/category";  // ← CHANGED: Redirect to category page, not edit page
+        }
+        
+        boolean isUpdated = categoryService.updateCategory(category);
+        
+        if (isUpdated) {
+            session.setAttribute("successMsg", "Category updated successfully");
+        } else {
+            session.setAttribute("errorMsg", "Category not updated! Internal server error");
+        }
+        
+        return "redirect:/admin/category";
+    }
 }
