@@ -44,7 +44,7 @@
                             <div class="mb-3">
                                 <label class="form-label fw-semibold">Category Image</label>
                                 <input type="file" name="image" class="form-control" accept="image/*">
-                                <small class="text-muted">Upload an image for the category (jpg, png, etc.)</small>
+                                <small class="text-muted">Upload an image for the category</small>
                             </div>
 
                             <!-- Status -->
@@ -98,31 +98,26 @@
                                     <tr th:each="cat : ${categories}">
                                         <td th:text="${cat.id}"></td>
                                         <td>
-                                            <!-- Display image from database -->
-                                            <img th:if="${cat.imageData != null}" 
-                                                 th:src="@{'/admin/category/image/' + ${cat.id}}" 
+                                            <img th:if="${cat.imageName != null}" 
+                                                 th:src="@{'/img/category_img/' + ${cat.imageName}}" 
                                                  alt="Category Image" 
                                                  class="rounded"
                                                  style="width: 60px; height: 60px; object-fit: cover;">
-                                            <span th:unless="${cat.imageData != null}" class="badge bg-secondary">
+                                            <span th:unless="${cat.imageName != null}" class="badge bg-secondary">
                                                 <i class="bi bi-image"></i> No Image
                                             </span>
                                         </td>
+                                        <td><strong th:text="${cat.name}"></strong></td>
                                         <td>
-                                            <strong th:text="${cat.name}"></strong>
-                                        </td>
-                                        <td>
-                                            <!-- NULL SAFE: Check if isActive is true -->
                                             <span th:if="${cat.isActive != null && cat.isActive}" class="badge bg-success">
                                                 <i class="bi bi-check-circle"></i> Active
                                             </span>
-                                            <!-- Show inactive for false OR null -->
                                             <span th:unless="${cat.isActive != null && cat.isActive}" class="badge bg-danger">
                                                 <i class="bi bi-x-circle"></i> Inactive
                                             </span>
                                         </td>
                                         <td>
-                                            <!-- Edit Button - Opens Modal -->
+                                            <!-- Edit Button -->
                                             <button class="btn btn-sm btn-warning me-1" 
                                                     data-bs-toggle="modal" 
                                                     th:data-bs-target="'#editModal' + ${cat.id}"
@@ -130,7 +125,7 @@
                                                 <i class="bi bi-pencil"></i> Edit
                                             </button>
                                             
-                                            <!-- Delete Button - Form based approach -->
+                                            <!-- Delete Button -->
                                             <form th:action="@{'/admin/deleteCategory/' + ${cat.id}}" 
                                                   method="get" 
                                                   style="display: inline;"
@@ -145,7 +140,7 @@
                             </table>
                         </div>
                         
-                        <!-- Show message if no categories -->
+                        <!-- No categories message -->
                         <div th:if="${#lists.isEmpty(categories)}" class="alert alert-info text-center mt-3">
                             <i class="bi bi-info-circle me-2"></i>
                             No categories found. Add your first category using the form on the left!
@@ -158,7 +153,7 @@
         </div>
     </div>
 
-    <!-- Edit Category Modals (One for each category) -->
+    <!-- Edit Category Modals -->
     <div th:each="cat : ${categories}">
         <div class="modal fade" th:id="'editModal' + ${cat.id}" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
@@ -173,7 +168,7 @@
                     <form th:action="@{/admin/updateCategory}" method="post" enctype="multipart/form-data">
                         <div class="modal-body">
                             
-                            <!-- Hidden ID field -->
+                            <!-- Hidden ID -->
                             <input type="hidden" name="id" th:value="${cat.id}">
                             
                             <!-- Category Name -->
@@ -182,18 +177,17 @@
                                 <input type="text" name="name" th:value="${cat.name}" class="form-control" required>
                             </div>
                             
-                            <!-- Current Image Display -->
+                            <!-- Current Image -->
                             <div class="mb-3">
                                 <label class="form-label fw-semibold">Current Image</label>
                                 <div class="text-center border rounded p-2 bg-light">
-                                    <img th:if="${cat.imageData != null}"
-                                         th:src="@{'/admin/category/image/' + ${cat.id}}" 
+                                    <img th:if="${cat.imageName != null}"
+                                         th:src="@{'/uploads/category_img/' + ${cat.imageName}}" 
                                          alt="Current Image" 
                                          style="max-width: 150px; max-height: 150px; object-fit: cover;" 
                                          class="rounded">
-                                    <p th:unless="${cat.imageData != null}" class="text-muted mb-0">
-                                        <i class="bi bi-image fs-1"></i><br>
-                                        No image uploaded
+                                    <p th:unless="${cat.imageName != null}" class="text-muted mb-0">
+                                        <i class="bi bi-image fs-1"></i><br>No image uploaded
                                     </p>
                                 </div>
                             </div>
@@ -205,11 +199,10 @@
                                 <small class="text-muted">Leave empty to keep current image</small>
                             </div>
                             
-                            <!-- Status (NULL SAFE) -->
+                            <!-- Status -->
                             <div class="mb-3">
                                 <label class="form-label fw-semibold d-block mb-2">Status</label>
                                 <div class="btn-group w-100" role="group">
-                                    <!-- Active: checked if isActive is explicitly true -->
                                     <input type="radio" class="btn-check" name="isActive" 
                                            th:id="'editStatusActive' + ${cat.id}" 
                                            value="true" 
@@ -219,7 +212,6 @@
                                         <i class="bi bi-check-circle me-2"></i>Active
                                     </label>
 
-                                    <!-- Inactive: checked if isActive is false OR null -->
                                     <input type="radio" class="btn-check" name="isActive" 
                                            th:id="'editStatusInactive' + ${cat.id}" 
                                            value="false" 

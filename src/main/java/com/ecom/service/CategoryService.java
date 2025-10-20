@@ -8,7 +8,6 @@ public interface CategoryService {
     Boolean existCategory(String name);
     List<Category> getAllCategory();
     Category getCategoryById(Integer id);
-    // Add this line
-    boolean deleteCategory(Integer id);
+    boolean deleteCategory(Integer id);  // or deleteCategoryById
     boolean updateCategory(Category category);
 }

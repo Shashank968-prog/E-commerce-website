@@ -1,182 +1,218 @@
 package com.ecom.controller;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+
 import com.ecom.model.Category;
 import com.ecom.service.CategoryService;
+
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
-    
+
     @Autowired
     private CategoryService categoryService;
-    
+
+    // ===================== Admin Dashboard =====================
     @GetMapping("/")
-    public String index() {
+    public String adminHome() {
         return "admin/index";
     }
-    
+
+    // ===================== Load Add Product Page =====================
     @GetMapping("/loadAddProduct")
     public String loadAddProduct() {
         return "admin/add_product";
     }
-    
+
+    // ===================== Category Page =====================
     @GetMapping("/category")
-    public String category(Model model, HttpSession session) {
-        List<Category> categories = categoryService.getAllCategory();
-        model.addAttribute("categories", categories);
-        
-        // Clear session messages after displaying
-        session.removeAttribute("successMsg");
-        session.removeAttribute("errorMsg");
-        
+    public String category(Model model) {
+        List<Category> list = categoryService.getAllCategory();
+        model.addAttribute("categories", list);
         return "admin/category";
     }
-    
+
+    // ===================== Save Category =====================
     @PostMapping("/saveCategory")
-    public String saveCategory(@ModelAttribute Category category,
-                               @RequestParam("image") MultipartFile file,
-                               HttpSession session) throws IOException {
-        
-        // Set image name and data
-        if (!file.isEmpty()) {
-            category.setImageName(file.getOriginalFilename());
-            category.setImageData(file.getBytes());
-        } else {
-            category.setImageName("default.jpg");
-            category.setImageData(null);
-        }
-        
-        // DEBUG: Print what we're trying to save
-        System.out.println("========== DEBUG INFO ==========");
-        System.out.println("Trying to save category: [" + category.getName() + "]");
-        System.out.println("Image name: " + category.getImageName());
-        System.out.println("Image size: " + (category.getImageData() != null ? category.getImageData().length + " bytes" : "null"));
-        System.out.println("Is Active: " + category.getIsActive());
-        
-        // Check existing categories
-        List<Category> allCategories = categoryService.getAllCategory();
-        System.out.println("Total categories in DB: " + allCategories.size());
-        for(Category c : allCategories) {
-            System.out.println("  - ID: " + c.getId() + ", Name: [" + c.getName() + "]");
-        }
-        
-        boolean exists = categoryService.existCategory(category.getName());
-        System.out.println("existsByName result: " + exists);
-        System.out.println("================================");
-        
-        if (exists) {
-            session.setAttribute("errorMsg", "Category name already exists");
-        } else {
+    public String saveCategory(@RequestParam("name") String name,
+                               @RequestParam("isActive") Boolean isActive,
+                               @RequestParam(value = "image", required = false) MultipartFile file,
+                               HttpSession session) {
+
+        try {
+            Category category = new Category();
+            category.setName(name);
+            category.setIsActive(isActive);
+
+            // Save uploaded image
+            if (file != null && !file.isEmpty()) {
+                String fileName = saveImageFile(file);
+                if (fileName != null) {
+                    category.setImageName(fileName);
+                    System.out.println("Image saved successfully: " + fileName);
+                } else {
+                    session.setAttribute("errorMsg", "Failed to save image file!");
+                    return "redirect:/admin/category";
+                }
+            }
+
             boolean isSaved = categoryService.saveCategory(category);
-            
+
             if (isSaved) {
-                session.setAttribute("successMsg", "Category saved successfully");
-                System.out.println("Category saved successfully in database!");
+                session.setAttribute("successMsg", "Category saved successfully!");
             } else {
-                session.setAttribute("errorMsg", "Category not saved! Internal server error");
+                session.setAttribute("errorMsg", "Error saving category!");
             }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            session.setAttribute("errorMsg", "Error: " + e.getMessage());
         }
-        
+
         return "redirect:/admin/category";
     }
-    
-    // Endpoint to retrieve image from database
-    @GetMapping("/category/image/{id}")
-    @ResponseBody
-    public ResponseEntity<byte[]> getCategoryImage(@PathVariable Integer id) {
-        Category category = categoryService.getCategoryById(id);
-        
-        if (category != null && category.getImageData() != null) {
-            return ResponseEntity.ok()
-                    .contentType(MediaType.IMAGE_JPEG)
-                    .body(category.getImageData());
-        }
-        
-        return ResponseEntity.notFound().build();
-    }
-    
-    // DELETE: Delete category by ID
+
+    // ===================== Delete Category =====================
     @GetMapping("/deleteCategory/{id}")
-    public String deleteCategory(@PathVariable Integer id, HttpSession session) {
-        boolean isDeleted = categoryService.deleteCategory(id);
-        
-        if (isDeleted) {
-            session.setAttribute("successMsg", "Category deleted successfully");
-        } else {
-            session.setAttribute("errorMsg", "Category not deleted! Something went wrong");
+    public String deleteCategory(@PathVariable int id, HttpSession session) {
+        try {
+            Category category = categoryService.getCategoryById(id);
+            
+            boolean isDeleted = categoryService.deleteCategory(id);
+
+            if (isDeleted) {
+                // Delete image file if exists
+                if (category != null && category.getImageName() != null) {
+                    deleteImageFile(category.getImageName());
+                }
+                session.setAttribute("successMsg", "Category deleted successfully!");
+            } else {
+                session.setAttribute("errorMsg", "Error deleting category!");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            session.setAttribute("errorMsg", "Something went wrong during deletion!");
         }
-        
+
         return "redirect:/admin/category";
     }
-    
-    // ❌ REMOVED: loadEditCategory method - Not needed with modal approach
-    // We use JavaScript to open the modal instead
-    
-    // UPDATE: Update existing category (form submission from modal)
+
+    // ===================== Edit Category =====================
+    @GetMapping("/editCategory/{id}")
+    public String editCategory(@PathVariable int id, Model model) {
+        Category category = categoryService.getCategoryById(id);
+        model.addAttribute("category", category);
+        return "admin/edit_category";
+    }
+
+    // ===================== Update Category =====================
     @PostMapping("/updateCategory")
-    public String updateCategory(@ModelAttribute Category category,
-                                 @RequestParam("image") MultipartFile file,
-                                 HttpSession session) throws IOException {
-        
-        // Get existing category to preserve old image if no new image is uploaded
-        Category existingCategory = categoryService.getCategoryById(category.getId());
-        
-        if (existingCategory == null) {
-            session.setAttribute("errorMsg", "Category not found");
-            return "redirect:/admin/category";
-        }
-        
-        // Handle image update
-        if (!file.isEmpty()) {
-            // New image uploaded
-            category.setImageName(file.getOriginalFilename());
-            category.setImageData(file.getBytes());
-        } else {
-            // No new image, keep the old one
-            category.setImageName(existingCategory.getImageName());
-            category.setImageData(existingCategory.getImageData());
-        }
-        
-        // Check if name already exists (excluding current category)
-        List<Category> allCategories = categoryService.getAllCategory();
-        boolean nameExists = false;
-        
-        for (Category c : allCategories) {
-            if (c.getName().equalsIgnoreCase(category.getName()) && !c.getId().equals(category.getId())) {
-                nameExists = true;
-                break;
+    public String updateCategory(@RequestParam("id") int id,
+                                 @RequestParam("name") String name,
+                                 @RequestParam("isActive") Boolean isActive,
+                                 @RequestParam(value = "image", required = false) MultipartFile file,
+                                 HttpSession session) {
+
+        try {
+            Category category = categoryService.getCategoryById(id);
+            category.setName(name);
+            category.setIsActive(isActive);
+
+            // Update image only if new one uploaded
+            if (file != null && !file.isEmpty()) {
+                // Delete old image if exists
+                if (category.getImageName() != null) {
+                    deleteImageFile(category.getImageName());
+                }
+                
+                // Save new image
+                String fileName = saveImageFile(file);
+                if (fileName != null) {
+                    category.setImageName(fileName);
+                }
             }
+
+            boolean isUpdated = categoryService.updateCategory(category);
+
+            if (isUpdated) {
+                session.setAttribute("successMsg", "Category updated successfully!");
+            } else {
+                session.setAttribute("errorMsg", "Error updating category!");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            session.setAttribute("errorMsg", "Error: " + e.getMessage());
         }
-        
-        if (nameExists) {
-            session.setAttribute("errorMsg", "Category name already exists");
-            return "redirect:/admin/category";  // ← CHANGED: Redirect to category page, not edit page
-        }
-        
-        boolean isUpdated = categoryService.updateCategory(category);
-        
-        if (isUpdated) {
-            session.setAttribute("successMsg", "Category updated successfully");
-        } else {
-            session.setAttribute("errorMsg", "Category not updated! Internal server error");
-        }
-        
+
         return "redirect:/admin/category";
+    }
+
+    // ===================== Helper Method: Save Image File =====================
+    private String saveImageFile(MultipartFile file) {
+        try {
+            // Get the upload directory path
+            File saveFile = new ClassPathResource("static/img").getFile();
+            String uploadDir = saveFile.getAbsolutePath() + File.separator + "category_img";
+            
+            // Create directory if not exists
+            File directory = new File(uploadDir);
+            if (!directory.exists()) {
+                directory.mkdirs();
+                System.out.println("Created directory: " + uploadDir);
+            }
+
+            // Generate unique filename
+            String originalFilename = StringUtils.cleanPath(file.getOriginalFilename());
+            String fileName = System.currentTimeMillis() + "_" + originalFilename;
+            
+            // Save file
+            Path filePath = Paths.get(uploadDir, fileName);
+            Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+            
+            System.out.println("File saved to: " + filePath.toString());
+            return fileName;
+            
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Error saving file: " + e.getMessage());
+            return null;
+        }
+    }
+
+    // ===================== Helper Method: Delete Image File =====================
+    private void deleteImageFile(String fileName) {
+        try {
+            File saveFile = new ClassPathResource("static/img").getFile();
+            String uploadDir = saveFile.getAbsolutePath() + File.separator + "category_img";
+            Path filePath = Paths.get(uploadDir, fileName);
+            Files.deleteIfExists(filePath);
+            System.out.println("Deleted file: " + filePath.toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Error deleting file: " + e.getMessage());
+        }
     }
 }

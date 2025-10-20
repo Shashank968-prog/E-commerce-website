@@ -35,7 +35,6 @@ public class CategoryServiceImpl implements CategoryService {
         return categoryRepository.findById(id).orElse(null);
     }
     
-    // NEW METHOD: Delete category by ID
     @Override
     public boolean deleteCategory(Integer id) {
         try {
@@ -51,7 +50,6 @@ public class CategoryServiceImpl implements CategoryService {
         }
     }
     
-    // NEW METHOD: Update existing category
     @Override
     public boolean updateCategory(Category category) {
         try {
