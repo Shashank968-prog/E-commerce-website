@@ -4,17 +4,35 @@
 <head>
     <meta charset="UTF-8">
     <title>Admin Dashboard</title>
+    <style>
+        .dashboard-card {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .dashboard-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15) !important;
+        }
+        .icon-circle {
+            transition: all 0.3s ease;
+        }
+        .dashboard-card:hover .icon-circle {
+            transform: rotate(360deg) scale(1.1);
+        }
+    </style>
 </head>
 <body>
 <section>
     <div class="container py-5 px-4">
-        <h2 class="text-center fw-bold mb-5 text-dark">Admin Dashboard</h2>
+        <h2 class="text-center fw-bold mb-5 text-dark">🎯 Admin Dashboard</h2>
         <div class="row g-4 justify-content-center" style="max-width: 1200px; margin: 0 auto;">
+            
+            <!-- Add Product Card -->
             <div class="col-lg-4 col-md-6">
                 <a href="/admin/loadAddProduct" class="text-decoration-none">
-                    <div class="card h-100 border-0" style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border-radius: 8px; transition: box-shadow 0.3s ease, transform 0.3s ease;">
+                    <div class="card h-100 border-0 dashboard-card" style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border-radius: 8px;">
                         <div class="card-body text-center p-4" style="background: #fff;">
-                            <div style="width: 70px; height: 70px; background: #f0f4ff; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+                            <div class="icon-circle" style="width: 70px; height: 70px; background: #f0f4ff; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
                                 <i class="fa-solid fa-plus fa-2x" style="color: #4361ee;"></i>
                             </div>
                             <h5 class="fw-bold mb-2" style="color: #1e293b;">Add Product</h5>
@@ -23,11 +41,13 @@
                     </div>
                 </a>
             </div>
+
+            <!-- Add Category Card -->
             <div class="col-lg-4 col-md-6">
                 <a href="/admin/category" class="text-decoration-none">
-                    <div class="card h-100 border-0" style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border-radius: 8px; transition: box-shadow 0.3s ease, transform 0.3s ease;">
+                    <div class="card h-100 border-0 dashboard-card" style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border-radius: 8px;">
                         <div class="card-body text-center p-4" style="background: #fff;">
-                            <div style="width: 70px; height: 70px; background: #fff0f6; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+                            <div class="icon-circle" style="width: 70px; height: 70px; background: #fff0f6; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
                                 <i class="fa-solid fa-tags fa-2x" style="color: #d946ef;"></i>
                             </div>
                             <h5 class="fw-bold mb-2" style="color: #1e293b;">Add Category</h5>
@@ -36,11 +56,13 @@
                     </div>
                 </a>
             </div>
+
+            <!-- View Products Card - FIXED LINK -->
             <div class="col-lg-4 col-md-6">
-                <a href="#" class="text-decoration-none">
-                    <div class="card h-100 border-0" style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border-radius: 8px; transition: box-shadow 0.3s ease, transform 0.3s ease;">
+                <a href="/admin/products" class="text-decoration-none">
+                    <div class="card h-100 border-0 dashboard-card" style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border-radius: 8px;">
                         <div class="card-body text-center p-4" style="background: #fff;">
-                            <div style="width: 70px; height: 70px; background: #f0f9ff; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+                            <div class="icon-circle" style="width: 70px; height: 70px; background: #f0f9ff; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
                                 <i class="fa-solid fa-box fa-2x" style="color: #0ea5e9;"></i>
                             </div>
                             <h5 class="fw-bold mb-2" style="color: #1e293b;">View Products</h5>
@@ -49,11 +71,13 @@
                     </div>
                 </a>
             </div>
+
+            <!-- Orders Card -->
             <div class="col-lg-4 col-md-6">
                 <a href="#" class="text-decoration-none">
-                    <div class="card h-100 border-0" style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border-radius: 8px; transition: box-shadow 0.3s ease, transform 0.3s ease;">
+                    <div class="card h-100 border-0 dashboard-card" style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border-radius: 8px;">
                         <div class="card-body text-center p-4" style="background: #fff;">
-                            <div style="width: 70px; height: 70px; background: #fef3c7; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+                            <div class="icon-circle" style="width: 70px; height: 70px; background: #fef3c7; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
                                 <i class="fa-solid fa-shopping-cart fa-2x" style="color: #f59e0b;"></i>
                             </div>
                             <h5 class="fw-bold mb-2" style="color: #1e293b;">Orders</h5>
@@ -62,11 +86,13 @@
                     </div>
                 </a>
             </div>
+
+            <!-- Users Card -->
             <div class="col-lg-4 col-md-6">
                 <a href="#" class="text-decoration-none">
-                    <div class="card h-100 border-0" style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border-radius: 8px; transition: box-shadow 0.3s ease, transform 0.3s ease;">
+                    <div class="card h-100 border-0 dashboard-card" style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border-radius: 8px;">
                         <div class="card-body text-center p-4" style="background: #fff;">
-                            <div style="width: 70px; height: 70px; background: #f0fdf4; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+                            <div class="icon-circle" style="width: 70px; height: 70px; background: #f0fdf4; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
                                 <i class="fa-solid fa-users fa-2x" style="color: #22c55e;"></i>
                             </div>
                             <h5 class="fw-bold mb-2" style="color: #1e293b;">Users</h5>
@@ -75,11 +101,13 @@
                     </div>
                 </a>
             </div>
+
+            <!-- Add Admin Card -->
             <div class="col-lg-4 col-md-6">
                 <a href="#" class="text-decoration-none">
-                    <div class="card h-100 border-0" style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border-radius: 8px; transition: box-shadow 0.3s ease, transform 0.3s ease;">
+                    <div class="card h-100 border-0 dashboard-card" style="box-shadow: 0 2px 8px rgba(0,0,0,0.08); border-radius: 8px;">
                         <div class="card-body text-center p-4" style="background: #fff;">
-                            <div style="width: 70px; height: 70px; background: #fef2f2; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+                            <div class="icon-circle" style="width: 70px; height: 70px; background: #fef2f2; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
                                 <i class="fa-solid fa-user-shield fa-2x" style="color: #ef4444;"></i>
                             </div>
                             <h5 class="fw-bold mb-2" style="color: #1e293b;">Add Admin</h5>
