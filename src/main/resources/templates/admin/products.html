@@ -5,6 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>All Products - Admin Dashboard</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 	<section>
@@ -23,9 +24,9 @@
 		}
 		
 		body {
-		    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+		    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 		    min-height: 100vh;
-		    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+		    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 		}
 		
 		.container-fluid {
@@ -33,11 +34,11 @@
 		}
 		
 		.products-header {
-		    background: white !important;
-		    padding: 2rem !important;
-		    border-radius: 16px !important;
-		    margin-bottom: 1.5rem !important;
-		    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1) !important;
+		    background: white;
+		    padding: 2rem;
+		    border-radius: 16px;
+		    margin-bottom: 1.5rem;
+		    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
 		    position: relative;
 		    overflow: hidden;
 		}
@@ -53,51 +54,51 @@
 		}
 		
 		.products-header h1 {
-		    font-size: 2rem !important;
-		    font-weight: 700 !important;
+		    font-size: 2rem;
+		    font-weight: 700;
 		    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
 		    -webkit-background-clip: text;
 		    -webkit-text-fill-color: transparent;
-		    margin-bottom: 0.5rem !important;
+		    margin-bottom: 0.5rem;
 		}
 		
 		.products-header p {
-		    color: var(--text-light) !important;
-		    font-size: 1rem !important;
-		    margin-bottom: 0 !important;
+		    color: var(--text-light);
+		    font-size: 1rem;
+		    margin-bottom: 0;
 		}
 		
 		.back-link {
-		    display: inline-flex !important;
+		    display: inline-flex;
 		    align-items: center;
 		    gap: 0.5rem;
-		    background: white !important;
-		    color: var(--primary-color) !important;
-		    padding: 0.75rem 1.5rem !important;
-		    border-radius: 10px !important;
-		    text-decoration: none !important;
-		    font-weight: 600 !important;
+		    background: white;
+		    color: var(--primary-color);
+		    padding: 0.75rem 1.5rem;
+		    border-radius: 10px;
+		    text-decoration: none;
+		    font-weight: 600;
 		    transition: all 0.3s ease;
-		    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
+		    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 		}
 		
 		.back-link:hover {
-		    background: var(--primary-color) !important;
-		    color: white !important;
+		    background: var(--primary-color);
+		    color: white;
 		    transform: translateY(-2px);
-		    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3) !important;
+		    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
 		}
 		
 		.alert-custom {
-		    padding: 1rem 1.5rem !important;
-		    border-radius: 12px !important;
-		    margin-bottom: 1.5rem !important;
-		    display: flex !important;
+		    padding: 1rem 1.5rem;
+		    border-radius: 12px;
+		    margin-bottom: 1.5rem;
+		    display: flex;
 		    align-items: center;
 		    gap: 0.75rem;
-		    font-weight: 600 !important;
+		    font-weight: 600;
 		    animation: slideDown 0.4s ease;
-		    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
+		    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 		}
 		
 		@keyframes slideDown {
@@ -112,135 +113,142 @@
 		}
 		
 		.alert-success-custom {
-		    background: linear-gradient(135deg, var(--success-color), #34d399) !important;
-		    color: white !important;
+		    background: linear-gradient(135deg, var(--success-color), #34d399);
+		    color: white;
 		}
 		
 		.alert-danger-custom {
-		    background: linear-gradient(135deg, var(--danger-color), #f87171) !important;
-		    color: white !important;
+		    background: linear-gradient(135deg, var(--danger-color), #f87171);
+		    color: white;
 		}
 		
 		.search-card {
-		    background: white !important;
-		    padding: 1.5rem !important;
-		    border-radius: 16px !important;
-		    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08) !important;
-		    margin-bottom: 1.5rem !important;
+		    background: white;
+		    padding: 1.5rem;
+		    border-radius: 16px;
+		    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+		    margin-bottom: 1.5rem;
 		}
 		
 		.search-input {
-		    border: 2px solid var(--border-color) !important;
-		    border-radius: 10px !important;
-		    padding: 0.75rem 1rem !important;
+		    border: 2px solid var(--border-color);
+		    border-radius: 10px;
+		    padding: 0.75rem 1rem;
 		    transition: all 0.3s ease;
-		    font-size: 0.95rem !important;
+		    font-size: 0.95rem;
 		}
 		
 		.search-input:focus {
-		    border-color: var(--primary-color) !important;
-		    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1) !important;
-		    outline: none !important;
+		    border-color: var(--primary-color);
+		    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+		    outline: none;
 		}
 		
 		.btn-search {
-		    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)) !important;
-		    border: none !important;
-		    border-radius: 10px !important;
-		    padding: 0.75rem 1.5rem !important;
-		    color: white !important;
-		    font-weight: 600 !important;
+		    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+		    border: none;
+		    border-radius: 10px;
+		    padding: 0.75rem 1.5rem;
+		    color: white;
+		    font-weight: 600;
 		    transition: all 0.3s ease;
 		}
 		
 		.btn-search:hover {
 		    transform: translateY(-2px);
-		    box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4) !important;
-		    color: white !important;
+		    box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+		    color: white;
 		}
 		
 		.table-container {
-		    background: white !important;
-		    border-radius: 16px !important;
-		    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08) !important;
+		    background: white;
+		    border-radius: 16px;
+		    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 		    overflow: hidden;
-		    padding: 0 !important;
 		}
 		
 		.table {
-		    margin-bottom: 0 !important;
+		    margin-bottom: 0;
+		    width: 100%;
 		}
 		
 		.table thead {
-		    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)) !important;
+		    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+		    position: sticky;
+		    top: 0;
+		    z-index: 10;
 		}
 		
 		.table thead th {
 		    color: white !important;
-		    font-weight: 600 !important;
+		    font-weight: 700 !important;
 		    text-transform: uppercase;
-		    font-size: 0.8rem !important;
+		    font-size: 0.85rem !important;
 		    letter-spacing: 0.5px;
 		    padding: 1.2rem 1rem !important;
 		    border: none !important;
+		    text-align: center;
+		    white-space: nowrap;
+		    background: transparent !important;
 		}
 		
 		.table tbody tr {
 		    transition: all 0.2s ease;
-		    border-bottom: 1px solid var(--border-color) !important;
+		    border-bottom: 1px solid var(--border-color);
 		}
 		
 		.table tbody tr:hover {
-		    background: linear-gradient(90deg, rgba(99, 102, 241, 0.05), transparent) !important;
-		    transform: scale(1.002);
+		    background: linear-gradient(90deg, rgba(99, 102, 241, 0.05), transparent);
 		}
 		
 		.table tbody td,
 		.table tbody th {
-		    padding: 1.2rem 1rem !important;
-		    vertical-align: middle !important;
-		    border: none !important;
+		    padding: 1rem;
+		    vertical-align: middle;
+		    border: none;
+		    text-align: center;
 		}
 		
 		.product-img {
-		    width: 60px !important;
-		    height: 60px !important;
+		    width: 60px;
+		    height: 60px;
 		    object-fit: cover;
-		    border-radius: 12px !important;
-		    border: 2px solid var(--border-color) !important;
+		    border-radius: 12px;
+		    border: 2px solid var(--border-color);
 		    transition: all 0.3s ease;
+		    display: inline-block;
 		}
 		
 		.product-img:hover {
-		    transform: scale(1.15) rotate(3deg);
-		    border-color: var(--primary-color) !important;
-		    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3) !important;
+		    transform: scale(1.15);
+		    border-color: var(--primary-color);
+		    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
 		}
 		
 		.price-tag {
-		    font-weight: 700 !important;
-		    color: var(--info-color) !important;
-		    font-size: 1rem !important;
+		    font-weight: 700;
+		    color: var(--info-color);
+		    font-size: 1rem;
 		}
 		
 		.discount-tag {
-		    color: var(--danger-color) !important;
-		    font-weight: 700 !important;
+		    color: var(--danger-color);
+		    font-weight: 700;
 		}
 		
 		.badge.bg-secondary {
-		    background: linear-gradient(135deg, #a78bfa, #c084fc) !important;
-		    padding: 0.4rem 0.8rem !important;
-		    border-radius: 8px !important;
-		    font-weight: 600 !important;
-		    font-size: 0.8rem !important;
+		    background: linear-gradient(135deg, #a78bfa, #c084fc);
+		    padding: 0.4rem 0.8rem;
+		    border-radius: 8px;
+		    font-weight: 600;
+		    font-size: 0.8rem;
 		}
 		
 		.badge-status {
-		    padding: 0.5rem 1rem !important;
-		    border-radius: 8px !important;
-		    font-weight: 600 !important;
-		    font-size: 0.75rem !important;
+		    padding: 0.5rem 1rem;
+		    border-radius: 8px;
+		    font-weight: 600;
+		    font-size: 0.75rem;
 		    text-transform: uppercase;
 		    display: inline-flex;
 		    align-items: center;
@@ -248,95 +256,95 @@
 		}
 		
 		.badge-active {
-		    background: linear-gradient(135deg, var(--success-color), #34d399) !important;
-		    color: white !important;
+		    background: linear-gradient(135deg, var(--success-color), #34d399);
+		    color: white;
 		}
 		
 		.badge-inactive {
-		    background: linear-gradient(135deg, var(--warning-color), #fbbf24) !important;
-		    color: white !important;
+		    background: linear-gradient(135deg, var(--warning-color), #fbbf24);
+		    color: white;
 		}
 		
 		.btn-action {
-		    padding: 0.6rem 1rem !important;
-		    border-radius: 8px !important;
-		    font-size: 0.8rem !important;
-		    font-weight: 600 !important;
+		    padding: 0.6rem 1rem;
+		    border-radius: 8px;
+		    font-size: 0.8rem;
+		    font-weight: 600;
 		    transition: all 0.3s ease;
-		    border: none !important;
+		    border: none;
 		    display: inline-flex;
 		    align-items: center;
 		    gap: 0.4rem;
-		    margin: 0.2rem !important;
+		    margin: 0.2rem;
 		}
 		
 		.btn-edit {
-		    background: linear-gradient(135deg, #3b82f6, #2563eb) !important;
-		    color: white !important;
+		    background: linear-gradient(135deg, #3b82f6, #2563eb);
+		    color: white;
 		}
 		
 		.btn-edit:hover {
 		    transform: translateY(-2px);
-		    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4) !important;
-		    color: white !important;
+		    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+		    color: white;
 		}
 		
 		.btn-delete {
-		    background: linear-gradient(135deg, var(--danger-color), #dc2626) !important;
-		    color: white !important;
+		    background: linear-gradient(135deg, var(--danger-color), #dc2626);
+		    color: white;
 		}
 		
 		.btn-delete:hover {
 		    transform: translateY(-2px);
-		    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4) !important;
-		    color: white !important;
+		    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+		    color: white;
 		}
 		
 		.table-footer {
-		    padding: 1.5rem !important;
-		    background: var(--bg-light) !important;
-		    border-top: 1px solid var(--border-color) !important;
+		    padding: 1.5rem;
+		    background: var(--bg-light);
+		    border-top: 1px solid var(--border-color);
 		}
 		
 		.stats-info {
-		    background: linear-gradient(135deg, var(--success-color), #34d399) !important;
-		    color: white !important;
-		    padding: 0.9rem 1.5rem !important;
-		    border-radius: 10px !important;
-		    font-weight: 600 !important;
-		    font-size: 1rem !important;
+		    background: linear-gradient(135deg, var(--success-color), #34d399);
+		    color: white;
+		    padding: 0.9rem 1.5rem;
+		    border-radius: 10px;
+		    font-weight: 600;
+		    font-size: 1rem;
 		    display: inline-flex;
 		    align-items: center;
 		    gap: 0.6rem;
-		    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3) !important;
+		    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
 		}
 		
 		.pagination {
-		    gap: 0.3rem !important;
-		    margin-bottom: 0 !important;
+		    gap: 0.3rem;
+		    margin-bottom: 0;
 		}
 		
 		.page-item .page-link {
-		    border: 2px solid var(--border-color) !important;
-		    border-radius: 8px !important;
-		    color: var(--primary-color) !important;
-		    font-weight: 600 !important;
-		    padding: 0.6rem 1rem !important;
+		    border: 2px solid var(--border-color);
+		    border-radius: 8px;
+		    color: var(--primary-color);
+		    font-weight: 600;
+		    padding: 0.6rem 1rem;
 		    transition: all 0.3s ease;
-		    margin: 0 0.1rem !important;
+		    margin: 0 0.1rem;
 		}
 		
 		.page-item .page-link:hover {
-		    background: var(--bg-light) !important;
-		    border-color: var(--primary-color) !important;
+		    background: var(--bg-light);
+		    border-color: var(--primary-color);
 		    transform: translateY(-1px);
 		}
 		
 		.page-item.active .page-link {
-		    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)) !important;
-		    color: white !important;
-		    border-color: transparent !important;
-		    box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3) !important;
+		    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+		    color: white;
+		    border-color: transparent;
+		    box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
 		}
 		
 		.page-item.disabled .page-link {
@@ -344,15 +352,19 @@
 		    cursor: not-allowed;
 		}
 		
+		.table-responsive {
+		    overflow-x: auto;
+		}
+		
 		@media (max-width: 768px) {
 		    .products-header h1 {
-		        font-size: 1.5rem !important;
+		        font-size: 1.5rem;
 		    }
 		    
 		    .btn-action {
 		        width: 100%;
 		        justify-content: center;
-		        margin: 0.2rem 0 !important;
+		        margin: 0.2rem 0;
 		    }
 		    
 		    .table-footer {
@@ -361,26 +373,8 @@
 		    }
 		    
 		    .pagination {
-		        justify-content: center !important;
+		        justify-content: center;
 		    }
-		}
-		
-		::-webkit-scrollbar {
-		    width: 8px;
-		    height: 8px;
-		}
-		
-		::-webkit-scrollbar-track {
-		    background: var(--bg-light);
-		}
-		
-		::-webkit-scrollbar-thumb {
-		    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-		    border-radius: 4px;
-		}
-		
-		::-webkit-scrollbar-thumb:hover {
-		    background: var(--primary-color);
 		}
 		</style>
 	
@@ -430,54 +424,56 @@
 
 				<div class="col-md-12">
 					<div class="table-container">
-						<table class="table table-hover">
-							<thead>
-								<tr>
-									<th scope="col">#</th>
-									<th scope="col">Image</th>
-									<th scope="col">Title</th>
-									<th scope="col">Category</th>
-									<th scope="col">Price</th>
-									<th scope="col">Discount</th>
-									<th scope="col">Final Price</th>
-									<th scope="col">Status</th>
-									<th scope="col">Stock</th>
-									<th scope="col">Actions</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr th:each="p,c:${products}">
-									<th scope="row" th:text="${c.count}"></th>
-									<td>
-										<img th:src="@{'/img/product_img/'+${p.image}}"
-											 class="product-img"
-											 alt="Product Image">
-									</td>
-									<td><strong th:text="${p.title}"></strong></td>
-									<td><span class="badge bg-secondary" th:text="${p.category}"></span></td>
-									<td class="price-tag">₹<span th:text="${p.price}"></span></td>
-									<td class="discount-tag"><span th:text="${p.discount}"></span>%</td>
-									<td class="price-tag">₹<span th:text="${p.discountPrice}"></span></td>
-									<td>
-										<span th:class="${p.isActive} ? 'badge-status badge-active' : 'badge-status badge-inactive'"
-											  th:text="${p.isActive} ? '✓ Active' : '✗ Inactive'">
-										</span>
-									</td>
-									<td><strong th:text="${p.stock}"></strong></td>
-									<td>
-										<a th:href="@{'/admin/editProduct/'+${p.id}}"
-										   class="btn btn-action btn-edit">
-											<i class="fa-solid fa-pen-to-square"></i> Edit
-										</a>
-										<a th:href="@{'/admin/deleteProduct/'+${p.id}}"
-										   class="btn btn-action btn-delete"
-										   onclick="return confirm('Are you sure you want to delete this product?');">
-											<i class="fa-solid fa-trash"></i> Delete
-										</a>
-									</td>
-								</tr>
-							</tbody>
-						</table>
+						<div class="table-responsive">
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th scope="col">SL No</th>
+										<th scope="col">Image</th>
+										<th scope="col">Product Title</th>
+										<th scope="col">Category</th>
+										<th scope="col">Original Price</th>
+										<th scope="col">Discount %</th>
+										<th scope="col">Discount Price</th>
+										<th scope="col">Status</th>
+										<th scope="col">Stock</th>
+										<th scope="col">Actions</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="p,c:${products}">
+										<th scope="row" th:text="${c.count}"></th>
+										<td>
+											<img th:src="@{'/img/product_img/'+${p.image}}"
+												 class="product-img"
+												 alt="Product Image">
+										</td>
+										<td><strong th:text="${p.title}"></strong></td>
+										<td><span class="badge bg-secondary" th:text="${p.category}"></span></td>
+										<td class="price-tag">₹<span th:text="${p.price}"></span></td>
+										<td class="discount-tag"><span th:text="${p.discount}"></span>%</td>
+										<td class="price-tag">₹<span th:text="${p.discountPrice}"></span></td>
+										<td>
+											<span th:class="${p.isActive} ? 'badge-status badge-active' : 'badge-status badge-inactive'"
+												  th:text="${p.isActive} ? '✓ Active' : '✗ Inactive'">
+											</span>
+										</td>
+										<td><strong th:text="${p.stock}"></strong></td>
+										<td>
+											<a th:href="@{'/admin/editProduct/'+${p.id}}"
+											   class="btn btn-action btn-edit">
+												<i class="fa-solid fa-pen-to-square"></i> Edit
+											</a>
+											<a th:href="@{'/admin/deleteProduct/'+${p.id}}"
+											   class="btn btn-action btn-delete"
+											   onclick="return confirm('Are you sure you want to delete this product?');">
+												<i class="fa-solid fa-trash"></i> Delete
+											</a>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
 
 						<div class="row mt-0 table-footer">
 							<div class="col-md-4">
