@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{base::layout(~{::section})}">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Edit Product - Admin Dashboard</title>
+</head>
+<body>
+	<section>
+		<style>
+		:root {
+		    --primary-color: #6366f1;
+		    --secondary-color: #8b5cf6;
+		    --success-color: #10b981;
+		    --danger-color: #ef4444;
+		    --warning-color: #f59e0b;
+		    --info-color: #06b6d4;
+		    --text-dark: #1e293b;
+		    --text-light: #64748b;
+		    --bg-light: #f8fafc;
+		    --border-color: #e2e8f0;
+		}
+		
+		body {
+		    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+		    min-height: 100vh;
+		    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+		}
+		
+		.container-fluid {
+		    max-width: 1000px;
+		}
+		
+		.page-header {
+		    background: white !important;
+		    padding: 2rem !important;
+		    border-radius: 16px !important;
+		    margin-bottom: 1.5rem !important;
+		    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1) !important;
+		    position: relative;
+		    overflow: hidden;
+		}
+		
+		.page-header::before {
+		    content: '';
+		    position: absolute;
+		    top: 0;
+		    left: 0;
+		    right: 0;
+		    height: 4px;
+		    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+		}
+		
+		.page-header h1 {
+		    font-size: 2rem !important;
+		    font-weight: 700 !important;
+		    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+		    -webkit-background-clip: text;
+		    -webkit-text-fill-color: transparent;
+		    margin-bottom: 0.5rem !important;
+		}
+		
+		.page-header p {
+		    color: var(--text-light) !important;
+		    font-size: 1rem !important;
+		    margin-bottom: 0 !important;
+		}
+		
+		.back-link {
+		    display: inline-flex !important;
+		    align-items: center;
+		    gap: 0.5rem;
+		    background: white !important;
+		    color: var(--primary-color) !important;
+		    padding: 0.75rem 1.5rem !important;
+		    border-radius: 10px !important;
+		    text-decoration: none !important;
+		    font-weight: 600 !important;
+		    transition: all 0.3s ease;
+		    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
+		}
+		
+		.back-link:hover {
+		    background: var(--primary-color) !important;
+		    color: white !important;
+		    transform: translateY(-2px);
+		    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3) !important;
+		}
+		
+		.form-card {
+		    background: white !important;
+		    padding: 2rem !important;
+		    border-radius: 16px !important;
+		    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08) !important;
+		    margin-bottom: 1.5rem !important;
+		}
+		
+		.form-label {
+		    font-weight: 600 !important;
+		    color: var(--text-dark) !important;
+		    margin-bottom: 0.5rem !important;
+		}
+		
+		.form-control, .form-select {
+		    border: 2px solid var(--border-color) !important;
+		    border-radius: 10px !important;
+		    padding: 0.75rem 1rem !important;
+		    transition: all 0.3s ease;
+		    font-size: 0.95rem !important;
+		}
+		
+		.form-control:focus, .form-select:focus {
+		    border-color: var(--primary-color) !important;
+		    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1) !important;
+		    outline: none !important;
+		}
+		
+		.form-check-input {
+		    width: 1.5rem !important;
+		    height: 1.5rem !important;
+		    cursor: pointer;
+		}
+		
+		.form-check-input:checked {
+		    background-color: var(--success-color) !important;
+		    border-color: var(--success-color) !important;
+		}
+		
+		.form-check-label {
+		    font-weight: 600 !important;
+		    color: var(--text-dark) !important;
+		    margin-left: 0.5rem;
+		}
+		
+		.current-image {
+		    width: 150px;
+		    height: 150px;
+		    object-fit: cover;
+		    border-radius: 12px;
+		    border: 3px solid var(--border-color);
+		    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+		    margin-top: 0.5rem;
+		}
+		
+		.btn-submit {
+		    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)) !important;
+		    border: none !important;
+		    border-radius: 10px !important;
+		    padding: 0.9rem 2.5rem !important;
+		    color: white !important;
+		    font-weight: 700 !important;
+		    font-size: 1rem !important;
+		    transition: all 0.3s ease;
+		    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4) !important;
+		}
+		
+		.btn-submit:hover {
+		    transform: translateY(-2px);
+		    box-shadow: 0 6px 20px rgba(99, 102, 241, 0.6) !important;
+		    color: white !important;
+		}
+		
+		.btn-reset {
+		    background: white !important;
+		    border: 2px solid var(--border-color) !important;
+		    border-radius: 10px !important;
+		    padding: 0.9rem 2.5rem !important;
+		    color: var(--text-dark) !important;
+		    font-weight: 700 !important;
+		    font-size: 1rem !important;
+		    transition: all 0.3s ease;
+		}
+		
+		.btn-reset:hover {
+		    background: var(--bg-light) !important;
+		    border-color: var(--primary-color) !important;
+		    color: var(--primary-color) !important;
+		}
+		
+		.section-title {
+		    font-size: 1.3rem;
+		    font-weight: 700;
+		    color: var(--text-dark);
+		    margin-bottom: 1.5rem;
+		    padding-bottom: 0.75rem;
+		    border-bottom: 2px solid var(--border-color);
+		}
+		
+		@media (max-width: 768px) {
+		    .page-header h1 {
+		        font-size: 1.5rem !important;
+		    }
+		    
+		    .btn-submit, .btn-reset {
+		        width: 100%;
+		        margin-bottom: 0.5rem;
+		    }
+		}
+		</style>
+	
+		<div class="container-fluid mt-4 p-3">
+			<div class="row">
+				<div class="page-header">
+					<h1 class="mb-2">✏️ Edit Product</h1>
+					<p class="mb-0">Update product information and save changes</p>
+				</div>
+				
+				<div class="mb-3">
+					<a href="/admin/products" class="back-link">
+						<i class="fa-solid fa-arrow-left"></i> Back to Products
+					</a>
+				</div>
+
+				<div class="col-md-12">
+					<div class="form-card">
+						<form action="/admin/updateProduct" method="post" enctype="multipart/form-data">
+							
+							<!-- Hidden ID Field -->
+							<input type="hidden" name="id" th:value="${product.id}">
+							
+							<div class="section-title">📝 Basic Information</div>
+							
+							<div class="row">
+								<div class="col-md-6 mb-3">
+									<label class="form-label">Product Title <span class="text-danger">*</span></label>
+									<input type="text" class="form-control" name="title" 
+									       th:value="${product.title}" 
+									       placeholder="Enter product title" required>
+								</div>
+								
+								<div class="col-md-6 mb-3">
+									<label class="form-label">Category <span class="text-danger">*</span></label>
+									<select class="form-select" name="category" required>
+										<option value="">-- Select Category --</option>
+										<option th:each="cat : ${categories}" 
+										        th:value="${cat.name}"
+										        th:text="${cat.name}"
+										        th:selected="${cat.name == product.category}">
+										</option>
+									</select>
+								</div>
+							</div>
+							
+							<div class="row">
+								<div class="col-md-4 mb-3">
+									<label class="form-label">Price (₹) <span class="text-danger">*</span></label>
+									<input type="number" class="form-control" name="price" 
+									       th:value="${product.price}" 
+									       placeholder="0.00" step="0.01" required>
+								</div>
+								
+								<div class="col-md-4 mb-3">
+									<label class="form-label">Discount (%)</label>
+									<input type="number" class="form-control" name="discount" 
+									       th:value="${product.discount}" 
+									       placeholder="0" min="0" max="100">
+								</div>
+								
+								<div class="col-md-4 mb-3">
+									<label class="form-label">Stock Quantity <span class="text-danger">*</span></label>
+									<input type="number" class="form-control" name="stock" 
+									       th:value="${product.stock}" 
+									       placeholder="0" required>
+								</div>
+							</div>
+							
+							<div class="mb-3">
+								<label class="form-label">Description</label>
+								<textarea class="form-control" name="description" rows="4" 
+								          placeholder="Enter product description" 
+								          th:text="${product.description}"></textarea>
+							</div>
+							
+							<div class="section-title">🖼️ Product Image</div>
+							
+							<div class="row">
+								<div class="col-md-6 mb-3">
+									<label class="form-label">Current Image</label>
+									<div>
+										<img th:if="${product.image != null and product.image != ''}"
+										     th:src="@{'/img/product_img/' + ${product.image}}"
+										     class="current-image"
+										     alt="Current Product Image">
+										<p th:if="${product.image == null or product.image == ''}" 
+										   class="text-muted">No image uploaded</p>
+									</div>
+								</div>
+								
+								<div class="col-md-6 mb-3">
+									<label class="form-label">Upload New Image (Optional)</label>
+									<input type="file" class="form-control" name="file" accept="image/*">
+									<small class="text-muted">Leave empty to keep current image</small>
+								</div>
+							</div>
+							
+							<div class="section-title">⚙️ Settings</div>
+							
+							<div class="mb-4">
+								<div class="form-check">
+									<input class="form-check-input" type="checkbox" name="isActive" 
+									       id="isActive" th:checked="${product.isActive}">
+									<label class="form-check-label" for="isActive">
+										Product is Active (Visible to customers)
+									</label>
+								</div>
+							</div>
+							
+							<div class="d-flex gap-3 justify-content-end">
+								<button type="reset" class="btn btn-reset">
+									<i class="fa-solid fa-rotate-left"></i> Reset
+								</button>
+								<button type="submit" class="btn btn-submit">
+									<i class="fa-solid fa-floppy-disk"></i> Update Product
+								</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</body>
+</html>

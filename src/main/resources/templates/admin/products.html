@@ -5,310 +5,390 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>All Products - Admin Dashboard</title>
-<style>
-/*
- * Enhanced CSS for a Modern, Good-Looking Admin Dashboard
- * Focus: Soft colors, subtle gradients, and clean interactions.
- */
-
-:root {
-    --primary-color: #6a67ce; /* A more refined purple/blue */
-    --secondary-color: #8b5cf6; /* Complementary lighter purple */
-    --text-color: #333;
-    --light-bg: #f7f9fc;
-    --shadow-light: 0 4px 15px rgba(0, 0, 0, 0.05);
-    --shadow-medium: 0 10px 30px rgba(106, 103, 206, 0.2);
-}
-
-body {
-    background-color: var(--light-bg);
-}
-
-/* -----------------------------------
-   Header and Cards
------------------------------------ */
-.products-header {
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-    color: white;
-    padding: 2.5rem; /* Increased padding */
-    border-radius: 20px; /* Softer edges */
-    margin-bottom: 2.5rem;
-    box-shadow: 0 15px 40px rgba(106, 103, 206, 0.4); /* Stronger, softer shadow */
-}
-
-.search-card, .table-container {
-    background: white;
-    padding: 2rem;
-    border-radius: 18px;
-    box-shadow: var(--shadow-light);
-    margin-bottom: 2rem;
-}
-
-/* -----------------------------------
-   Table Styles
------------------------------------ */
-.table-container {
-    overflow-x: auto;
-}
-
-.table {
-    --bs-table-bg: white; /* Ensure white background for table */
-    border-radius: 15px; /* Match container border */
-}
-
-.table thead {
-    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); /* Lighter, more vibrant header gradient */
-    color: white;
-    border-radius: 15px 15px 0 0; /* Only top corners rounded */
-}
-
-.table thead th {
-    border: none;
-    padding: 1.2rem 1rem; /* More vertical padding */
-    font-weight: 700;
-    text-transform: uppercase;
-    font-size: 0.75rem; /* Slightly smaller for cleaner look */
-    letter-spacing: 1px;
-}
-
-.table tbody tr {
-    transition: all 0.3s ease;
-    border-bottom: 1px solid #eee; /* Light separator line */
-}
-
-.table tbody tr:last-child {
-    border-bottom: none;
-}
-
-.table tbody tr:hover {
-    background-color: #f0f2ff;
-    transform: translateY(-2px); /* Subtle lift on hover */
-    box-shadow: 0 6px 15px rgba(106, 103, 206, 0.1);
-}
-
-/* -----------------------------------
-   Product Details
------------------------------------ */
-.product-img {
-    width: 60px; /* Slightly smaller for better table fit */
-    height: 60px;
-    object-fit: cover;
-    border-radius: 50%; /* Circle image for a modern look */
-    border: 3px solid var(--primary-color);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-    transition: transform 0.4s ease, border-color 0.3s ease;
-}
-
-.product-img:hover {
-    transform: scale(1.1); /* Slightly less dramatic zoom */
-    border-color: var(--secondary-color);
-}
-
-.price-tag {
-    font-weight: 700;
-    color: #06b6d4; /* Tailwind's cyan-500 for a fresh look */
-}
-
-.discount-tag {
-    color: #ef4444; /* Tailwind's red-500 */
-    font-weight: 600;
-}
-
-/* -----------------------------------
-   Badges and Status
------------------------------------ */
-.badge-status {
-    padding: 0.4rem 0.8rem;
-    border-radius: 12px;
-    font-weight: 700;
-    font-size: 0.7rem;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.badge-active {
-    background: linear-gradient(45deg, #10b981 0%, #34d399 100%); /* Green-teal */
-    color: white;
-}
-
-.badge-inactive {
-    background: linear-gradient(45deg, #f97316 0%, #fb923c 100%); /* Orange-red */
-    color: white;
-}
-
-.badge.bg-secondary {
-    background-color: var(--primary-color) !important;
-    border-radius: 8px;
-    font-weight: 500;
-}
-
-/* -----------------------------------
-   Search & Input
------------------------------------ */
-.search-input {
-    border: 1px solid #ddd; /* Softer border */
-    border-radius: 12px;
-    padding: 0.8rem 1.2rem;
-    transition: all 0.3s ease;
-    height: 100%; /* Full height for alignment */
-}
-
-.search-input:focus {
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 0.25rem rgba(106, 103, 206, 0.2);
-    outline: none;
-}
-
-.btn-search {
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-    border: none;
-    border-radius: 12px;
-    padding: 0.8rem 1.5rem;
-    color: white;
-    font-weight: 600;
-    transition: all 0.3s ease;
-}
-
-.btn-search:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(106, 103, 206, 0.4);
-}
-
-/* -----------------------------------
-   Action Buttons
------------------------------------ */
-.btn-action {
-    margin: 0.2rem;
-    padding: 0.6rem 1.2rem;
-    border-radius: 10px;
-    font-size: 0.75rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    transition: all 0.3s ease;
-    border: none;
-}
-
-.btn-edit {
-    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); /* Cleaner blue */
-    color: white;
-}
-
-.btn-edit:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 15px rgba(59, 130, 246, 0.4);
-}
-
-.btn-delete {
-    background: linear-gradient(135deg, #f43f5e 0%, #e11d48 100%); /* Cleaner red */
-    color: white;
-}
-
-.btn-delete:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 15px rgba(244, 63, 94, 0.4);
-}
-
-/* -----------------------------------
-   Utility and Info
------------------------------------ */
-.back-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    color: var(--primary-color);
-    font-weight: 700;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    padding: 0.75rem 1.25rem;
-    border-radius: 12px;
-}
-
-.back-link:hover {
-    background: #e9e7ff;
-    color: var(--secondary-color);
-    transform: translateX(-5px);
-}
-
-.stats-info {
-    background: linear-gradient(135deg, #10b981 0%, #34d399 100%); /* Matching Active badge color */
-    color: white;
-    padding: 1.2rem 1.75rem;
-    border-radius: 15px;
-    font-weight: 700;
-    font-size: 1.05rem;
-    display: inline-block;
-    box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
-}
-
-/* -----------------------------------
-   Alerts and Pagination
------------------------------------ */
-.alert-custom {
-    border-radius: 15px;
-    padding: 1.2rem 2rem;
-    font-size: 1rem;
-    font-weight: 600;
-    margin-bottom: 2rem;
-    box-shadow: var(--shadow-medium);
-    border: none;
-	animation: slideIn 0.5s ease;
-}
-
-@keyframes slideIn {
-	from {
-		opacity: 0;
-		transform: translateY(-20px);
-	}
-	to {
-		opacity: 1;
-		transform: translateY(0);
-	}
-}
-
-.alert-success-custom {
-    background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
-    color: white;
-}
-
-.alert-danger-custom {
-    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
-    color: white;
-}
-
-.pagination {
-    gap: 0.2rem;
-}
-
-.page-item .page-link {
-    border: none;
-    border-radius: 10px;
-    color: var(--primary-color);
-    font-weight: 700;
-    padding: 0.75rem 1.1rem;
-    transition: all 0.3s ease;
-    margin: 0 0.1rem;
-}
-
-.page-item.active .page-link {
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-    color: white;
-    box-shadow: 0 4px 10px rgba(106, 103, 206, 0.3);
-}
-
-.page-item .page-link:hover {
-    background: #e9e7ff;
-    color: var(--secondary-color);
-    transform: translateY(-2px);
-}
-</style>
 </head>
 <body>
 	<section>
+		<style>
+		:root {
+		    --primary-color: #6366f1;
+		    --secondary-color: #8b5cf6;
+		    --success-color: #10b981;
+		    --danger-color: #ef4444;
+		    --warning-color: #f59e0b;
+		    --info-color: #06b6d4;
+		    --text-dark: #1e293b;
+		    --text-light: #64748b;
+		    --bg-light: #f8fafc;
+		    --border-color: #e2e8f0;
+		}
+		
+		body {
+		    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+		    min-height: 100vh;
+		    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+		}
+		
+		.container-fluid {
+		    max-width: 1400px;
+		}
+		
+		.products-header {
+		    background: white !important;
+		    padding: 2rem !important;
+		    border-radius: 16px !important;
+		    margin-bottom: 1.5rem !important;
+		    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1) !important;
+		    position: relative;
+		    overflow: hidden;
+		}
+		
+		.products-header::before {
+		    content: '';
+		    position: absolute;
+		    top: 0;
+		    left: 0;
+		    right: 0;
+		    height: 4px;
+		    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+		}
+		
+		.products-header h1 {
+		    font-size: 2rem !important;
+		    font-weight: 700 !important;
+		    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+		    -webkit-background-clip: text;
+		    -webkit-text-fill-color: transparent;
+		    margin-bottom: 0.5rem !important;
+		}
+		
+		.products-header p {
+		    color: var(--text-light) !important;
+		    font-size: 1rem !important;
+		    margin-bottom: 0 !important;
+		}
+		
+		.back-link {
+		    display: inline-flex !important;
+		    align-items: center;
+		    gap: 0.5rem;
+		    background: white !important;
+		    color: var(--primary-color) !important;
+		    padding: 0.75rem 1.5rem !important;
+		    border-radius: 10px !important;
+		    text-decoration: none !important;
+		    font-weight: 600 !important;
+		    transition: all 0.3s ease;
+		    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
+		}
+		
+		.back-link:hover {
+		    background: var(--primary-color) !important;
+		    color: white !important;
+		    transform: translateY(-2px);
+		    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3) !important;
+		}
+		
+		.alert-custom {
+		    padding: 1rem 1.5rem !important;
+		    border-radius: 12px !important;
+		    margin-bottom: 1.5rem !important;
+		    display: flex !important;
+		    align-items: center;
+		    gap: 0.75rem;
+		    font-weight: 600 !important;
+		    animation: slideDown 0.4s ease;
+		    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
+		}
+		
+		@keyframes slideDown {
+		    from {
+		        opacity: 0;
+		        transform: translateY(-15px);
+		    }
+		    to {
+		        opacity: 1;
+		        transform: translateY(0);
+		    }
+		}
+		
+		.alert-success-custom {
+		    background: linear-gradient(135deg, var(--success-color), #34d399) !important;
+		    color: white !important;
+		}
+		
+		.alert-danger-custom {
+		    background: linear-gradient(135deg, var(--danger-color), #f87171) !important;
+		    color: white !important;
+		}
+		
+		.search-card {
+		    background: white !important;
+		    padding: 1.5rem !important;
+		    border-radius: 16px !important;
+		    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08) !important;
+		    margin-bottom: 1.5rem !important;
+		}
+		
+		.search-input {
+		    border: 2px solid var(--border-color) !important;
+		    border-radius: 10px !important;
+		    padding: 0.75rem 1rem !important;
+		    transition: all 0.3s ease;
+		    font-size: 0.95rem !important;
+		}
+		
+		.search-input:focus {
+		    border-color: var(--primary-color) !important;
+		    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1) !important;
+		    outline: none !important;
+		}
+		
+		.btn-search {
+		    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)) !important;
+		    border: none !important;
+		    border-radius: 10px !important;
+		    padding: 0.75rem 1.5rem !important;
+		    color: white !important;
+		    font-weight: 600 !important;
+		    transition: all 0.3s ease;
+		}
+		
+		.btn-search:hover {
+		    transform: translateY(-2px);
+		    box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4) !important;
+		    color: white !important;
+		}
+		
+		.table-container {
+		    background: white !important;
+		    border-radius: 16px !important;
+		    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08) !important;
+		    overflow: hidden;
+		    padding: 0 !important;
+		}
+		
+		.table {
+		    margin-bottom: 0 !important;
+		}
+		
+		.table thead {
+		    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)) !important;
+		}
+		
+		.table thead th {
+		    color: white !important;
+		    font-weight: 600 !important;
+		    text-transform: uppercase;
+		    font-size: 0.8rem !important;
+		    letter-spacing: 0.5px;
+		    padding: 1.2rem 1rem !important;
+		    border: none !important;
+		}
+		
+		.table tbody tr {
+		    transition: all 0.2s ease;
+		    border-bottom: 1px solid var(--border-color) !important;
+		}
+		
+		.table tbody tr:hover {
+		    background: linear-gradient(90deg, rgba(99, 102, 241, 0.05), transparent) !important;
+		    transform: scale(1.002);
+		}
+		
+		.table tbody td,
+		.table tbody th {
+		    padding: 1.2rem 1rem !important;
+		    vertical-align: middle !important;
+		    border: none !important;
+		}
+		
+		.product-img {
+		    width: 60px !important;
+		    height: 60px !important;
+		    object-fit: cover;
+		    border-radius: 12px !important;
+		    border: 2px solid var(--border-color) !important;
+		    transition: all 0.3s ease;
+		}
+		
+		.product-img:hover {
+		    transform: scale(1.15) rotate(3deg);
+		    border-color: var(--primary-color) !important;
+		    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3) !important;
+		}
+		
+		.price-tag {
+		    font-weight: 700 !important;
+		    color: var(--info-color) !important;
+		    font-size: 1rem !important;
+		}
+		
+		.discount-tag {
+		    color: var(--danger-color) !important;
+		    font-weight: 700 !important;
+		}
+		
+		.badge.bg-secondary {
+		    background: linear-gradient(135deg, #a78bfa, #c084fc) !important;
+		    padding: 0.4rem 0.8rem !important;
+		    border-radius: 8px !important;
+		    font-weight: 600 !important;
+		    font-size: 0.8rem !important;
+		}
+		
+		.badge-status {
+		    padding: 0.5rem 1rem !important;
+		    border-radius: 8px !important;
+		    font-weight: 600 !important;
+		    font-size: 0.75rem !important;
+		    text-transform: uppercase;
+		    display: inline-flex;
+		    align-items: center;
+		    gap: 0.4rem;
+		}
+		
+		.badge-active {
+		    background: linear-gradient(135deg, var(--success-color), #34d399) !important;
+		    color: white !important;
+		}
+		
+		.badge-inactive {
+		    background: linear-gradient(135deg, var(--warning-color), #fbbf24) !important;
+		    color: white !important;
+		}
+		
+		.btn-action {
+		    padding: 0.6rem 1rem !important;
+		    border-radius: 8px !important;
+		    font-size: 0.8rem !important;
+		    font-weight: 600 !important;
+		    transition: all 0.3s ease;
+		    border: none !important;
+		    display: inline-flex;
+		    align-items: center;
+		    gap: 0.4rem;
+		    margin: 0.2rem !important;
+		}
+		
+		.btn-edit {
+		    background: linear-gradient(135deg, #3b82f6, #2563eb) !important;
+		    color: white !important;
+		}
+		
+		.btn-edit:hover {
+		    transform: translateY(-2px);
+		    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4) !important;
+		    color: white !important;
+		}
+		
+		.btn-delete {
+		    background: linear-gradient(135deg, var(--danger-color), #dc2626) !important;
+		    color: white !important;
+		}
+		
+		.btn-delete:hover {
+		    transform: translateY(-2px);
+		    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4) !important;
+		    color: white !important;
+		}
+		
+		.table-footer {
+		    padding: 1.5rem !important;
+		    background: var(--bg-light) !important;
+		    border-top: 1px solid var(--border-color) !important;
+		}
+		
+		.stats-info {
+		    background: linear-gradient(135deg, var(--success-color), #34d399) !important;
+		    color: white !important;
+		    padding: 0.9rem 1.5rem !important;
+		    border-radius: 10px !important;
+		    font-weight: 600 !important;
+		    font-size: 1rem !important;
+		    display: inline-flex;
+		    align-items: center;
+		    gap: 0.6rem;
+		    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3) !important;
+		}
+		
+		.pagination {
+		    gap: 0.3rem !important;
+		    margin-bottom: 0 !important;
+		}
+		
+		.page-item .page-link {
+		    border: 2px solid var(--border-color) !important;
+		    border-radius: 8px !important;
+		    color: var(--primary-color) !important;
+		    font-weight: 600 !important;
+		    padding: 0.6rem 1rem !important;
+		    transition: all 0.3s ease;
+		    margin: 0 0.1rem !important;
+		}
+		
+		.page-item .page-link:hover {
+		    background: var(--bg-light) !important;
+		    border-color: var(--primary-color) !important;
+		    transform: translateY(-1px);
+		}
+		
+		.page-item.active .page-link {
+		    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)) !important;
+		    color: white !important;
+		    border-color: transparent !important;
+		    box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3) !important;
+		}
+		
+		.page-item.disabled .page-link {
+		    opacity: 0.5;
+		    cursor: not-allowed;
+		}
+		
+		@media (max-width: 768px) {
+		    .products-header h1 {
+		        font-size: 1.5rem !important;
+		    }
+		    
+		    .btn-action {
+		        width: 100%;
+		        justify-content: center;
+		        margin: 0.2rem 0 !important;
+		    }
+		    
+		    .table-footer {
+		        flex-direction: column;
+		        gap: 1rem;
+		    }
+		    
+		    .pagination {
+		        justify-content: center !important;
+		    }
+		}
+		
+		::-webkit-scrollbar {
+		    width: 8px;
+		    height: 8px;
+		}
+		
+		::-webkit-scrollbar-track {
+		    background: var(--bg-light);
+		}
+		
+		::-webkit-scrollbar-thumb {
+		    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+		    border-radius: 4px;
+		}
+		
+		::-webkit-scrollbar-thumb:hover {
+		    background: var(--primary-color);
+		}
+		</style>
+	
 		<div class="container-fluid mt-4 p-3">
 			<div class="row">
 				<div class="products-header">
 					<h1 class="mb-2">📦 Product Management</h1>
-					<p class="mb-0 opacity-75">Manage your entire product inventory from one place</p>
+					<p class="mb-0">Manage your entire product inventory from one place</p>
 				</div>
 				
 				<div class="mb-3">
@@ -319,16 +399,14 @@ body {
 				
 				<th:block th:if="${session.succMsg}">
 					<div class="alert alert-success-custom alert-custom">
-						<i class="fa-solid fa-circle-check"></i> [[${session.succMsg}]]
+						<i class="fa-solid fa-circle-check"></i> <span th:text="${session.succMsg}"></span>
 					</div>
-					<th:block th:text="${@commnServiceImpl.removeSessionMessage()}"></th:block>
 				</th:block>
 
 				<th:block th:if="${session.errorMsg}">
 					<div class="alert alert-danger-custom alert-custom">
-						<i class="fa-solid fa-circle-exclamation"></i> [[${session.errorMsg}]]
+						<i class="fa-solid fa-circle-exclamation"></i> <span th:text="${session.errorMsg}"></span>
 					</div>
-					<th:block th:text="${@commnServiceImpl.removeSessionMessage()}"></th:block>
 				</th:block>
 
 				<div class="col-md-12">
@@ -369,23 +447,23 @@ body {
 							</thead>
 							<tbody>
 								<tr th:each="p,c:${products}">
-									<th scope="row">[[${c.count}]]</th>
+									<th scope="row" th:text="${c.count}"></th>
 									<td>
 										<img th:src="@{'/img/product_img/'+${p.image}}"
 											 class="product-img"
 											 alt="Product Image">
 									</td>
-									<td><strong>[[${p.title}]]</strong></td>
-									<td><span class="badge bg-secondary">[[${p.category}]]</span></td>
-									<td class="price-tag">₹[[${p.price}]]</td>
-									<td class="discount-tag">[[${p.discount}]]%</td>
-									<td class="price-tag">₹[[${p.discountPrice}]]</td>
+									<td><strong th:text="${p.title}"></strong></td>
+									<td><span class="badge bg-secondary" th:text="${p.category}"></span></td>
+									<td class="price-tag">₹<span th:text="${p.price}"></span></td>
+									<td class="discount-tag"><span th:text="${p.discount}"></span>%</td>
+									<td class="price-tag">₹<span th:text="${p.discountPrice}"></span></td>
 									<td>
 										<span th:class="${p.isActive} ? 'badge-status badge-active' : 'badge-status badge-inactive'"
 											  th:text="${p.isActive} ? '✓ Active' : '✗ Inactive'">
 										</span>
 									</td>
-									<td><strong>[[${p.stock}]]</strong></td>
+									<td><strong th:text="${p.stock}"></strong></td>
 									<td>
 										<a th:href="@{'/admin/editProduct/'+${p.id}}"
 										   class="btn btn-action btn-edit">
@@ -401,10 +479,10 @@ body {
 							</tbody>
 						</table>
 
-						<div class="row mt-4">
+						<div class="row mt-0 table-footer">
 							<div class="col-md-4">
 								<div class="stats-info">
-									<i class="fa-solid fa-box"></i> Total Products: [[${totalElements}]]
+									<i class="fa-solid fa-box"></i> Total Products: <span th:text="${totalElements}"></span>
 								</div>
 							</div>
 							<div class="col-md-8">
@@ -422,7 +500,7 @@ body {
 											class="page-item" 
 											th:classappend="${pageNo+1==i}?'active':''">
 											<a class="page-link"
-											   th:href="@{'/admin/products?pageNo='+${i-1}}">[[${i}]]</a>
+											   th:href="@{'/admin/products?pageNo='+${i-1}}" th:text="${i}"></a>
 										</li>
 
 										<li class="page-item" th:classappend="${isLast} ? 'disabled':''">
