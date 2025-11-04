@@ -271,6 +271,20 @@
 								          placeholder="Enter product description" 
 								          th:text="${product.description}"></textarea>
 							</div>
+							<div class="mb-3">
+							                                <label class="form-label fw-semibold d-block mb-3">Status</label>
+							                                <div class="btn-group w-100" role="group">
+							                                    <input type="radio" class="btn-check" name="isActive" id="statusActive" value="true" checked>
+							                                    <label class="btn btn-outline-success w-50" for="statusActive">
+							                                        <i class="bi bi-check-circle me-2"></i>Active
+							                                    </label>
+
+							                                    <input type="radio" class="btn-check" name="isActive" id="statusInactive" value="false">
+							                                    <label class="btn btn-outline-danger w-50" for="statusInactive">
+							                                        <i class="bi bi-x-circle me-2"></i>Inactive
+							                                    </label>
+							                                </div>
+							                            </div>
 							
 							<div class="section-title">🖼️ Product Image</div>
 							

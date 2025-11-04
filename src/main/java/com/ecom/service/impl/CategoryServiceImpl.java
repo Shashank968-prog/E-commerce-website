@@ -35,6 +35,9 @@ public class CategoryServiceImpl implements CategoryService {
         return categoryRepository.findById(id).orElse(null);
     }
     
+    //getallactivecategory
+    
+    
     @Override
     public boolean deleteCategory(Integer id) {
         try {
@@ -51,6 +54,12 @@ public class CategoryServiceImpl implements CategoryService {
     }
     
     @Override
+	public List<Category> getAllActiveCategory() {
+    	List<Category> categories = categoryRepository.findByisActiveTrue();
+		return categories;
+	}
+
+	@Override
     public boolean updateCategory(Category category) {
         try {
             Category existingCategory = categoryRepository.findById(category.getId()).orElse(null);

@@ -10,4 +10,5 @@ public interface CategoryService {
     Category getCategoryById(Integer id);
     boolean deleteCategory(Integer id);  // or deleteCategoryById
     boolean updateCategory(Category category);
+    public List<Category> getAllActiveCategory();
 }

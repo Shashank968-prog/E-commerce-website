@@ -151,4 +151,11 @@ public class ProductServiceImpl implements ProductService {
 		return pageProduct;
 	}
 
+	@Override
+	public List<Product> getAllActiveProducts() {
+		
+		List<Product> products=productRepository.findByIsActiveTrue();
+		return null;
+	}
+
 }
