@@ -4,9 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Product</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
 
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
         * {
             margin: 0;
             padding: 0;
@@ -54,60 +56,21 @@
         .form-card {
             background: rgba(20, 20, 35, 0.7);
             border-radius: 30px;
-            box-shadow: 
-                0 50px 100px rgba(0, 0, 0, 0.5),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            box-shadow: 0 50px 100px rgba(0, 0, 0, 0.5);
             overflow: hidden;
             backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            transform: translateY(0);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.4s ease;
         }
 
         .form-card:hover {
             transform: translateY(-8px);
-            box-shadow: 
-                0 60px 120px rgba(0, 0, 0, 0.6),
-                inset 0 1px 0 rgba(255, 255, 255, 0.15);
+            box-shadow: 0 60px 120px rgba(0, 0, 0, 0.6);
         }
 
         .form-header {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
             padding: 70px 50px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .form-header::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -20%;
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.15), transparent 70%);
-            animation: pulse 8s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 0.5; }
-            50% { transform: scale(1.2); opacity: 0.8; }
-        }
-
-        .form-header::after {
-            content: '✨';
-            position: absolute;
-            font-size: 120px;
-            top: 50%;
-            right: 10%;
-            transform: translateY(-50%);
-            opacity: 0.15;
-            animation: rotate 20s linear infinite;
-        }
-
-        @keyframes rotate {
-            from { transform: translateY(-50%) rotate(0deg); }
-            to { transform: translateY(-50%) rotate(360deg); }
         }
 
         .form-header h1 {
@@ -115,19 +78,12 @@
             font-weight: 800;
             color: white;
             margin: 0;
-            position: relative;
-            z-index: 1;
-            text-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
-            letter-spacing: -1px;
         }
 
         .form-header p {
-            margin: 18px 0 0 0;
+            margin-top: 18px;
             color: rgba(255, 255, 255, 0.95);
             font-size: 17px;
-            position: relative;
-            z-index: 1;
-            font-weight: 400;
         }
 
         .form-body {
@@ -144,33 +100,18 @@
             display: flex;
             align-items: center;
             gap: 14px;
-            animation: slideIn 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 1px solid;
-        }
-
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateX(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
         }
 
         .alert-success {
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(5, 150, 105, 0.2));
+            background: rgba(16, 185, 129, 0.2);
             color: #6ee7b7;
-            border-color: rgba(16, 185, 129, 0.4);
-            box-shadow: 0 8px 32px rgba(16, 185, 129, 0.2);
+            border: 1px solid rgba(16, 185, 129, 0.4);
         }
 
         .alert-danger {
-            background: linear-gradient(135deg, rgba(239, 68, 68, 0.2), rgba(220, 38, 38, 0.2));
+            background: rgba(239, 68, 68, 0.2);
             color: #fca5a5;
-            border-color: rgba(239, 68, 68, 0.4);
-            box-shadow: 0 8px 32px rgba(239, 68, 68, 0.2);
+            border: 1px solid rgba(239, 68, 68, 0.4);
         }
 
         .form-section {
@@ -178,84 +119,30 @@
             padding: 40px;
             border-radius: 20px;
             margin-bottom: 32px;
-            box-shadow: 
-                0 8px 32px rgba(0, 0, 0, 0.3),
-                inset 0 1px 0 rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.08);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .form-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, #667eea, #764ba2, transparent);
-            opacity: 0;
-            transition: opacity 0.4s ease;
-        }
-
-        .form-section:hover {
-            transform: translateY(-4px);
-            box-shadow: 
-                0 12px 48px rgba(102, 126, 234, 0.3),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
-            border-color: rgba(102, 126, 234, 0.3);
-        }
-
-        .form-section:hover::before {
-            opacity: 1;
         }
 
         .section-title {
             font-size: 22px;
             font-weight: 700;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            background: linear-gradient(135deg, #667eea, #764ba2);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
             margin-bottom: 32px;
-            padding-bottom: 18px;
             border-bottom: 2px solid rgba(102, 126, 234, 0.3);
-            position: relative;
-        }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 80px;
-            height: 2px;
-            background: linear-gradient(90deg, #667eea, #764ba2);
-            box-shadow: 0 0 20px rgba(102, 126, 234, 0.6);
+            padding-bottom: 10px;
         }
 
         .form-group {
             margin-bottom: 28px;
         }
 
-        .form-group:last-child {
-            margin-bottom: 0;
-        }
-
         .form-label {
             display: block;
             font-weight: 600;
             color: #e5e7eb;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             font-size: 15px;
-            letter-spacing: 0.3px;
-        }
-
-        .required {
-            color: #f093fb;
-            margin-left: 4px;
-            font-size: 16px;
         }
 
         .form-control {
@@ -264,38 +151,13 @@
             border: 2px solid rgba(102, 126, 234, 0.3);
             border-radius: 12px;
             font-size: 15px;
-            font-family: 'Poppins', sans-serif;
-            transition: all 0.3s ease;
             background: rgba(30, 30, 50, 0.6);
             color: #e5e7eb;
-        }
-
-        .form-control:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 
-                0 0 0 4px rgba(102, 126, 234, 0.2),
-                0 0 30px rgba(102, 126, 234, 0.3);
-            background: rgba(30, 30, 50, 0.8);
-        }
-
-        .form-control::placeholder {
-            color: rgba(156, 163, 175, 0.6);
         }
 
         textarea.form-control {
             resize: vertical;
             min-height: 150px;
-            line-height: 1.7;
-        }
-
-        select.form-control {
-            cursor: pointer;
-            appearance: none;
-            background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L6 6L11 1' stroke='%23667eea' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 20px center;
-            padding-right: 50px;
         }
 
         .form-row {
@@ -310,35 +172,7 @@
             padding: 60px;
             text-align: center;
             background: rgba(30, 30, 50, 0.4);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
-            cursor: pointer;
-            overflow: hidden;
-        }
-
-        .file-upload::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(102, 126, 234, 0.3), transparent 70%);
-            transform: translate(-50%, -50%);
-            transition: all 0.6s ease;
-        }
-
-        .file-upload:hover::before {
-            width: 400px;
-            height: 400px;
-        }
-
-        .file-upload:hover {
-            border-color: #667eea;
-            background: rgba(102, 126, 234, 0.1);
-            transform: scale(1.02);
-            box-shadow: 0 0 40px rgba(102, 126, 234, 0.3);
         }
 
         .file-upload input[type="file"] {
@@ -349,66 +183,11 @@
             left: 0;
             opacity: 0;
             cursor: pointer;
-            z-index: 2;
-        }
-
-        .file-upload-icon {
-            width: 120px;
-            height: 120px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 24px;
-            font-size: 50px;
-            box-shadow: 
-                0 10px 40px rgba(102, 126, 234, 0.4),
-                inset 0 -4px 8px rgba(0, 0, 0, 0.2);
-            transition: all 0.4s ease;
-            position: relative;
-            z-index: 1;
-        }
-
-        .file-upload:hover .file-upload-icon {
-            transform: scale(1.15) rotate(10deg);
-            box-shadow: 
-                0 15px 60px rgba(102, 126, 234, 0.6),
-                inset 0 -4px 8px rgba(0, 0, 0, 0.3);
-        }
-
-        .file-upload-text {
-            color: #e5e7eb;
-            font-size: 19px;
-            font-weight: 700;
-            margin-bottom: 10px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .file-upload-hint {
-            color: rgba(156, 163, 175, 0.8);
-            font-size: 14px;
-            line-height: 1.7;
-            position: relative;
-            z-index: 1;
-        }
-
-        .file-name-display {
-            margin-top: 15px;
-            padding: 12px 20px;
-            background: rgba(102, 126, 234, 0.1);
-            border: 1px solid rgba(102, 126, 234, 0.3);
-            border-radius: 10px;
-            color: #6ee7b7;
-            font-size: 14px;
-            font-weight: 600;
-            display: none;
         }
 
         .btn-submit {
             width: 100%;
-            padding: 22px 40px;
+            padding: 20px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
             color: white;
             border: none;
@@ -416,50 +195,12 @@
             font-size: 17px;
             font-weight: 700;
             cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            box-shadow: 
-                0 10px 40px rgba(102, 126, 234, 0.5),
-                inset 0 1px 0 rgba(255, 255, 255, 0.2);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn-submit::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.3);
-            transform: translate(-50%, -50%);
-            transition: width 0.8s, height 0.8s;
-        }
-
-        .btn-submit:hover::before {
-            width: 400px;
-            height: 400px;
+            transition: all 0.4s ease;
         }
 
         .btn-submit:hover {
             transform: translateY(-4px);
-            box-shadow: 
-                0 20px 60px rgba(102, 126, 234, 0.7),
-                inset 0 1px 0 rgba(255, 255, 255, 0.3);
-        }
-
-        .btn-submit:active {
-            transform: translateY(-2px);
-        }
-
-        .helper-text {
-            font-size: 13px;
-            color: rgba(156, 163, 175, 0.7);
-            margin-top: 10px;
-            font-weight: 400;
+            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.7);
         }
 
         .radio-group {
@@ -468,80 +209,14 @@
         }
 
         .radio-option {
-            flex: 1;
             display: flex;
             align-items: center;
-            gap: 12px;
-            padding: 18px 24px;
-            border: 2px solid rgba(102, 126, 234, 0.3);
-            border-radius: 14px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            cursor: pointer;
-            background: rgba(30, 30, 50, 0.4);
-        }
-
-        .radio-option:hover {
-            border-color: #667eea;
-            background: rgba(102, 126, 234, 0.1);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
-        }
-
-        .radio-option:has(input[type="radio"]:checked) {
-            border-color: #667eea;
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2));
-            box-shadow: 
-                0 8px 32px rgba(102, 126, 234, 0.4),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
-        }
-
-        .radio-option input[type="radio"] {
-            width: 24px;
-            height: 24px;
-            cursor: pointer;
-            accent-color: #667eea;
-        }
-
-        .radio-option label {
-            cursor: pointer;
-            margin: 0;
-            font-weight: 600;
-            font-size: 15px;
-            color: #e5e7eb;
-            transition: all 0.3s ease;
-        }
-
-        .radio-option input[type="radio"]:checked + label {
-            color: #f093fb;
+            gap: 10px;
         }
 
         @media (max-width: 768px) {
             .form-row {
                 grid-template-columns: 1fr;
-            }
-
-            .form-body {
-                padding: 40px 28px;
-            }
-
-            .form-header {
-                padding: 50px 28px;
-            }
-
-            .form-section {
-                padding: 32px 24px;
-            }
-
-            .form-header h1 {
-                font-size: 36px;
-            }
-
-            .file-upload {
-                padding: 50px 24px;
-            }
-
-            .radio-group {
-                flex-direction: column;
             }
         }
     </style>
@@ -553,106 +228,54 @@
                 <h1>Add New Product</h1>
                 <p>Enter product details to add to your inventory</p>
             </div>
-            
+
             <div class="form-body">
-                
                 <!-- Success Message -->
                 <div th:if="${session.succMsg != null and !session.succMsg.isEmpty()}" class="alert alert-success">
                     ✅ <span th:text="${session.succMsg}"></span>
-                    <th:block th:text="${@sessionService.removeSessionMessage()}"></th:block>
                 </div>
 
                 <!-- Error Message -->
                 <div th:if="${session.errorMsg != null and !session.errorMsg.isEmpty()}" class="alert alert-danger">
                     ❌ <span th:text="${session.errorMsg}"></span>
-                    <th:block th:text="${@sessionService.removeSessionMessage()}"></th:block>
                 </div>
 
-                <form th:action="@{/admin/saveProduct}" method="post" enctype="multipart/form-data" id="productForm">
-                    
+                <form th:action="@{/admin/saveProduct}" method="post" enctype="multipart/form-data">
+
                     <!-- Basic Information -->
                     <div class="form-section">
                         <div class="section-title">Basic Information</div>
-                        
                         <div class="form-group">
-                            <label class="form-label">
-                                Product Title
-                                <span class="required">*</span>
-                            </label>
-                            <input 
-                                type="text" 
-                                name="title" 
-                                class="form-control" 
-                                placeholder="Enter product name" 
-                                required>
-                            <div class="helper-text">Choose a clear and descriptive product name</div>
+                            <label class="form-label">Product Title <span class="required">*</span></label>
+                            <input type="text" name="title" class="form-control" placeholder="Enter product name" required>
                         </div>
 
                         <div class="form-group">
-                            <label class="form-label">
-                                Description
-                                <span class="required">*</span>
-                            </label>
-                            <textarea 
-                                name="description" 
-                                class="form-control" 
-                                placeholder="Describe the product features, specifications, and benefits" 
-                                required></textarea>
-                            <div class="helper-text">Provide detailed information about the product</div>
+                            <label class="form-label">Description <span class="required">*</span></label>
+                            <textarea name="description" class="form-control" placeholder="Describe the product" required></textarea>
                         </div>
                     </div>
 
                     <!-- Category & Pricing -->
                     <div class="form-section">
                         <div class="section-title">Category & Pricing</div>
-                        
                         <div class="form-group">
-                            <label class="form-label">
-                                Category
-                                <span class="required">*</span>
-                            </label>
-                            <select 
-                                name="category.id" 
-                                class="form-control" 
-                                required>
+                            <label class="form-label">Category <span class="required">*</span></label>
+                            <select name="category.id" class="form-control" required>
                                 <option value="">Select a category</option>
-                                <option 
-                                    th:each="c : ${categories}" 
-                                    th:value="${c.id}" 
-                                    th:text="${c.name}">
-                                    Category Name
-                                </option>
+                                <option th:each="c : ${categories}" th:value="${c.id}" th:text="${c.name}"></option>
                             </select>
                         </div>
 
                         <div class="form-row">
                             <div class="form-group">
-                                <label class="form-label">
-                                    Price (₹)
-                                    <span class="required">*</span>
-                                </label>
-                                <input 
-                                    type="number" 
-                                    name="price" 
-                                    class="form-control" 
-                                    placeholder="0.00" 
-                                    step="0.01" 
-                                    min="0" 
-                                    required>
+                                <label class="form-label">Price (₹)</label>
+                                <input type="number" name="price" class="form-control" placeholder="0.00" step="0.01" min="0" required>
                             </div>
 
                             <div class="form-group">
-                                <label class="form-label">
-                                    Stock Quantity
-                                    <span class="required">*</span>
-                                </label>
-                                <input 
-                                    type="number" 
-                                    name="stock" 
-                                    class="form-control" 
-                                    placeholder="0" 
-                                    min="0" 
-                                    required>
+                                <label class="form-label">Stock Quantity</label>
+                                <input type="number" name="stock" class="form-control" placeholder="0" min="0" required>
                             </div>
                         </div>
                     </div>
@@ -660,59 +283,32 @@
                     <!-- Product Image -->
                     <div class="form-section">
                         <div class="section-title">Product Image</div>
-                        
-                        <div class="form-group">
-                            <div class="file-upload">
-                                <input type="file" name="file" accept="image/*" required id="fileInput">
-                                <div class="file-upload-icon">📸</div>
-                                <div class="file-upload-text">Click to upload product image</div>
-                                <div class="file-upload-hint">Supported: JPG, PNG, JPEG (Max 10MB) • High resolution recommended</div>
-                            </div>
-                            <div class="file-name-display" id="fileNameDisplay"></div>
+                        <div class="file-upload">
+                            <input type="file" name="file" accept="image/*" required>
+                            <p>📸 Click or drag to upload image</p>
+                            <p style="color: #aaa; font-size: 14px;">Supported: JPG, PNG, JPEG (Max 10MB)</p>
                         </div>
                     </div>
 
                     <!-- Product Status -->
                     <div class="form-section">
                         <div class="section-title">Product Status</div>
-                        
-                        <div class="form-group">
-                            <label class="form-label">Status</label>
-                            <div class="radio-group">
-                                <div class="radio-option">
-                                    <input type="radio" id="active" name="isActive" value="true" checked>
-                                    <label for="active">Active</label>
-                                </div>
-                                <div class="radio-option">
-                                    <input type="radio" id="inactive" name="isActive" value="false">
-                                    <label for="inactive">Inactive</label>
-                                </div>
+                        <div class="radio-group">
+                            <div class="radio-option">
+                                <input type="radio" id="active" name="isActive" value="true" checked>
+                                <label for="active">Active</label>
                             </div>
-                            <div class="helper-text">Active products will be visible to customers</div>
+                            <div class="radio-option">
+                                <input type="radio" id="inactive" name="isActive" value="false">
+                                <label for="inactive">Inactive</label>
+                            </div>
                         </div>
                     </div>
 
-                    <button type="submit" class="btn-submit">
-                        Add Product to Inventory
-                    </button>
+                    <button type="submit" class="btn-submit">Add Product</button>
                 </form>
             </div>
         </div>
     </div>
-
-    <script>
-        // File upload display
-        const fileInput = document.getElementById('fileInput');
-        const fileNameDisplay = document.getElementById('fileNameDisplay');
-        
-        if (fileInput) {
-            fileInput.addEventListener('change', function(e) {
-                if (this.files && this.files[0]) {
-                    fileNameDisplay.textContent = '📎 ' + this.files[0].name;
-                    fileNameDisplay.style.display = 'block';
-                }
-            });
-        }
-    </script>
 </body>
 </html>

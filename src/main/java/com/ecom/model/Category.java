@@ -22,9 +22,13 @@ public class Category {
     
     private String name;
     
-    private String imageName;  // Only stores filename, not byte[]
+    private String imageName;
     
     private Boolean isActive;
     
-    // Remove imageData field completely since you're using file storage now
+    // ✅ ADD THIS METHOD - This fixes the number display issue!
+    @Override
+    public String toString() {
+        return this.name != null ? this.name : "Unnamed Category";
+    }
 }

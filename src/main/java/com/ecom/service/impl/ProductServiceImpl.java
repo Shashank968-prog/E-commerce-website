@@ -55,14 +55,16 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public Product getProductById(Integer id) {
-		Product product = productRepository.findById(id).orElse(null);
-		return product;
+		return productRepository.findById(id).orElse(null);
 	}
 
 	@Override
 	public Product updateProduct(Product product, MultipartFile image) {
-
 		Product dbProduct = getProductById(product.getId());
+
+		if (ObjectUtils.isEmpty(dbProduct)) {
+			return null;
+		}
 
 		String imageName = image.isEmpty() ? dbProduct.getImage() : image.getOriginalFilename();
 
@@ -75,43 +77,43 @@ public class ProductServiceImpl implements ProductService {
 		dbProduct.setIsActive(product.getIsActive());
 		dbProduct.setDiscount(product.getDiscount());
 
-		// Calculate discount: 5% = 100 * (5/100); Final = 100 - 5 = 95
+		// Calculate discount price: 5% = 100 * (5/100); Final = 100 - 5 = 95
 		Double discount = product.getPrice() * (product.getDiscount() / 100.0);
 		Double discountPrice = product.getPrice() - discount;
 		dbProduct.setDiscountPrice(discountPrice);
 
-		Product updateProduct = productRepository.save(dbProduct);
+		Product updatedProduct = productRepository.save(dbProduct);
 
-		if (!ObjectUtils.isEmpty(updateProduct)) {
-
-			if (!image.isEmpty()) {
-
-				try {
-					File saveFile = new ClassPathResource("static/img").getFile();
-
-					Path path = Paths.get(saveFile.getAbsolutePath() + File.separator + "product_img" + File.separator
-							+ image.getOriginalFilename());
-					Files.copy(image.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
-
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+		if (!ObjectUtils.isEmpty(updatedProduct) && !image.isEmpty()) {
+			try {
+				File saveFile = new ClassPathResource("static/img").getFile();
+				Path path = Paths.get(saveFile.getAbsolutePath() + File.separator + "product_img" 
+						+ File.separator + image.getOriginalFilename());
+				Files.copy(image.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
-			return product;
 		}
-		return null;
+
+		return updatedProduct;
 	}
 
 	@Override
 	public List<Product> getAllActiveProducts(String category) {
-		List<Product> products = null;
-		if (ObjectUtils.isEmpty(category)) {
+		List<Product> products;
+
+		if (ObjectUtils.isEmpty(category) || category.trim().isEmpty()) {
 			products = productRepository.findByIsActiveTrue();
 		} else {
 			products = productRepository.findByCategory(category);
 		}
 
 		return products;
+	}
+
+	@Override
+	public List<Product> getAllActiveProducts() {
+		return productRepository.findByIsActiveTrue();
 	}
 
 	@Override
@@ -127,35 +129,22 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public Page<Product> getAllActiveProductPagination(Integer pageNo, Integer pageSize, String category) {
-
 		Pageable pageable = PageRequest.of(pageNo, pageSize);
-		Page<Product> pageProduct = null;
+		Page<Product> pageProduct;
 
-		if (ObjectUtils.isEmpty(category)) {
+		if (ObjectUtils.isEmpty(category) || category.trim().isEmpty()) {
 			pageProduct = productRepository.findByIsActiveTrue(pageable);
 		} else {
 			pageProduct = productRepository.findByCategory(pageable, category);
 		}
+
 		return pageProduct;
 	}
 
 	@Override
 	public Page<Product> searchActiveProductPagination(Integer pageNo, Integer pageSize, String category, String ch) {
-
-		Page<Product> pageProduct = null;
 		Pageable pageable = PageRequest.of(pageNo, pageSize);
-
-		pageProduct = productRepository.findByIsActiveTrueAndTitleContainingIgnoreCaseOrCategoryContainingIgnoreCase(ch,
-				ch, pageable);
-
-		return pageProduct;
+		return productRepository.findByIsActiveTrueAndTitleContainingIgnoreCaseOrCategoryContainingIgnoreCase(
+				ch, ch, pageable);
 	}
-
-	@Override
-	public List<Product> getAllActiveProducts() {
-		
-		List<Product> products=productRepository.findByIsActiveTrue();
-		return null;
-	}
-
 }
